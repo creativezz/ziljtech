@@ -1,9 +1,9 @@
 #################### default parameters ################################
-logo = "images/logoss.png"
+logo = "images/logo.png"
 logo_width = "200px"
 # OpenGraph / Twitter Card metadata
 description = "This is meta description"
-author = "ZILJ tech"
+author = "Themefisher"
 image = "images/logo.png" # this image will be used as fallback if a page has no image of its own
 # contact form action
 contact_form_action = "#" # contact form works with https://formspree.io
@@ -13,7 +13,7 @@ blogCategoryType = "category"
 
 # Preloader
 [preloader]
-enable = true
+enable = false
 preloader = "" # use jpg, png, svg or gif format.
 
 # Navigation buttons

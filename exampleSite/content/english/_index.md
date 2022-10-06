@@ -1,9 +1,9 @@
 ---
 ####################### Banner #########################
 banner:
-  title : "Let us solve your critical website <br> development challenges"
+  title : "Let us solve your critical website and app <br> development challenges"
   image : "images/banner-art.svg"
-  content : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam nihil enim maxime corporis cumque <br> totam aliquid nam sint inventore optio modi neque laborum officiis necessitatibus"
+  content : "Have An Amazing Idea in Mind? Contact Us Now! We have team of experts who can help you to convert your idea into reality!"
   button:
     enable : true
     label : "Contact Us"
@@ -12,37 +12,36 @@ banner:
 ##################### Feature ##########################
 feature:
   enable : true
-  title : "Something You Need To Know"
+  title : "ZILJ TECH MAJOR FOOTPRINTS"
   feature_item:
     # feature item loop
     - name : "Clean Code"
       icon : "fas fa-code"
-      content : "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
+      content : "A core part of good software is readability. Keeping the mental complexity low so that everybody (including the author) has an easy time understanding it. Clean code patterns help to do so."
       
     # feature item loop
-    - name : "Object Oriented"
+    - name : "Android and IOS Dev"
       icon : "fas fa-object-group"
-      content : "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
+      content : "We are specialised in creating and developing Android and IOS dev. software of any large and small business."
       
     # feature item loop
-    - name : "24h Service"
+    - name : "Web Services"
       icon : "fas fa-user-clock"
-      content : "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
+      content : "Specialising in creating highly performing site for small and large enterprise business."
       
     # feature item loop
-    - name : "Value For Money"
+    - name : "UI/UX Design"
       icon : "fas fa-heart"
-      content : "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
-      
-    # feature item loop
-    - name : "Faster Response"
-      icon : "fas fa-tachometer-alt"
-      content : "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
-      
-    # feature item loop
-    - name : "Cloud Support"
-      icon : "fas fa-cloud"
-      content : "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
+      content : "As a full-service UX design agency, we work closely with our clients to define, design, and develop transformative user experiences across all platforms and brand's touch points."
+
+    - name : "CLOUD"
+      icon : "fas fa-heart"
+      content : "With a growing number of people using the internet, integrated cloud solutions ensure systems run stable."
+
+    - name : "Linux Web Hosting"
+      icon : "fas fa-heart"
+      content : "Linux web hosting from the number one hosting provider guarantees quality at affordable rates.Our Linux hosting provides everything that the web developer needs for a functional website. Diverse scripting language support at your foot step."    
+
       
 
 
@@ -50,47 +49,11 @@ feature:
 service:
   enable : true
   service_item:
-    # service item loop
-    - title : "It is the most advanced digital marketing and it company."
-      images:
-      - "images/service-1.png"
-      - "images/service-2.png"
-      - "images/service-3.png"
-      content : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat tristique eget amet, tempus eu at consecttur. Leo facilisi nunc viverra tellus. Ac laoreet sit vel consquat. consectetur adipiscing elit. Consequat tristique eget amet, tempus eu at consecttur. Leo facilisi nunc viverra tellus. Ac laoreet sit vel consquat."
-      button:
-        enable : true
-        label : "Check it out"
-        link : "#"
+
         
-    # service item loop
-    - title : "It is a privately owned Information and cyber security company"
-      images:
-      - "images/service-1.png"
-      content : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat tristique eget amet, tempus eu at consecttur. Leo facilisi nunc viverra tellus. Ac laoreet sit vel consquat. consectetur adipiscing elit. Consequat tristique eget amet, tempus eu at consecttur. Leo facilisi nunc viverra tellus. Ac laoreet sit vel consquat."
-      button:
-        enable : true
-        label : "Check it out"
-        link : "#"
-        
-    # service item loop
-    - title : "It’s a team of experienced and skilled people with distributions"
-      images:
-      - "images/service-2.png"
-      content : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat tristique eget amet, tempus eu at consecttur. Leo facilisi nunc viverra tellus. Ac laoreet sit vel consquat. consectetur adipiscing elit. Consequat tristique eget amet, tempus eu at consecttur. Leo facilisi nunc viverra tellus. Ac laoreet sit vel consquat."
-      button:
-        enable : true
-        label : "Check it out"
-        link : "#"
-        
-    # service item loop
-    - title : "A company standing different from others"
-      images:
-      - "images/service-3.png"
-      content : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat tristique eget amet, tempus eu at consecttur. Leo facilisi nunc viverra tellus. Ac laoreet sit vel consquat. consectetur adipiscing elit. Consequat tristique eget amet, tempus eu at consecttur. Leo facilisi nunc viverra tellus. Ac laoreet sit vel consquat."
-      button:
-        enable : true
-        label : "Check it out"
-        link : "#"
+
+
+
         
 ################### Screenshot ########################
 screenshot:
@@ -105,7 +68,7 @@ call_to_action:
   enable : true
   title : "Ready to get started?"
   image : "images/cta.svg"
-  content : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat tristique eget amet, tempus eu at consecttur."
+  content : "Have An Amazing Idea in Mind? Contact Us Now! We have team of experts who can help you to convert your idea into reality!"
   button:
     enable : true
     label : "Contact Us"
