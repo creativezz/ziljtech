@@ -9,9 +9,10 @@ draft: false
 
 
 
-<p>Last updated: October 10, 20221</p>
+<h1>Privacy Policy</h1>
+<p>Last updated: November 18, 2022</p>
 <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
-<p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the <a href="https://www.termsfeed.com/privacy-policy-generator/" target="_blank">TermsFeed Privacy Policy Generator</a>.</p>
+<p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy .</p>
 <h1>Interpretation and Definitions</h1>
 <h2>Interpretation</h2>
 <p>The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>
@@ -28,7 +29,7 @@ draft: false
 <p><strong>Application</strong> means the software program provided by the Company downloaded by You on any electronic device, named DudoTalk</p>
 </li>
 <li>
-<p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to DudoTalk.</p>
+<p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to ZILJ TECH PRIVATE LIMITED, 236, Cherai Beach, Ernakulam.</p>
 </li>
 <li>
 <p><strong>Country</strong> refers to: Kerala,  India</p>
@@ -150,11 +151,6 @@ draft: false
 <h1>Contact Us</h1>
 <p>If you have any questions about this Privacy Policy, You can contact us:</p>
 <ul>
-<li>
-<p>By email: dudotalk@gmail.com</p>
-</li>
-<li>
-<p>By phone number: +919567668085</p>
-</li>
+<li>By email: dudotalk@gmail.com</li>
 </ul>
 
