@@ -1,7 +1,9 @@
 ######################## default configuration ####################
-baseURL = "http://demo.gethugothemes.com/bigspring-light/examplesite/"
+baseURL = "http://localhost:1313/"
 title = "ZILJ Tech"
 theme = "bigspring-light"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
 # post pagination
 paginate = "3"
 # post excerpt

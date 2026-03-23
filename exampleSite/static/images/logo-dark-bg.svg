@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 460" width="400" height="460">
+  <defs>
+    <!-- Main brand gradient blue → cyan -->
+    <linearGradient id="gMain" x1="0%" y1="10%" x2="100%" y2="90%">
+      <stop offset="0%"   stop-color="#1a6fd4"/>
+      <stop offset="45%"  stop-color="#0ea5c8"/>
+      <stop offset="100%" stop-color="#00cccc"/>
+    </linearGradient>
+    <!-- Reverse for right-side elements -->
+    <linearGradient id="gRev" x1="100%" y1="10%" x2="0%" y2="90%">
+      <stop offset="0%"   stop-color="#00cccc"/>
+      <stop offset="55%"  stop-color="#0ea5c8"/>
+      <stop offset="100%" stop-color="#1a6fd4"/>
+    </linearGradient>
+    <!-- Highlight sheen (lighter top edge) -->
+    <linearGradient id="gSheen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#7fd4f0" stop-opacity="0.7"/>
+      <stop offset="50%"  stop-color="#40b0e0" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0078d7" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Text gradient horizontal -->
+    <linearGradient id="gText" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#1a8fe0"/>
+      <stop offset="100%" stop-color="#00cccc"/>
+    </linearGradient>
+    <!-- Soft outer glow -->
+    <filter id="outerGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Tight glow for strokes -->
+    <filter id="strokeGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Text glow -->
+    <filter id="textGlow" x="-15%" y="-50%" width="130%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Clip: left ring -->
+    <clipPath id="clipL">
+      <circle cx="148" cy="178" r="92"/>
+    </clipPath>
+    <!-- Clip: right ring -->
+    <clipPath id="clipR">
+      <circle cx="252" cy="178" r="92"/>
+    </clipPath>
+    <!-- Background radial glow -->
+    <radialGradient id="bgGlow" cx="50%" cy="40%" r="45%">
+      <stop offset="0%"   stop-color="#1060c0" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#0d1f40"  stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ── Background ── -->
+  <rect width="400" height="460" fill="#0d1f40"/>
+  <rect width="400" height="460" fill="url(#bgGlow)"/>
+
+  <!-- ══════════════════════════════════════════════════
+       FIGURE-8 RING MARK
+       Left ring centre:  (148, 178)  radius: 90
+       Right ring centre: (252, 178)  radius: 90
+  ══════════════════════════════════════════════════ -->
+
+  <!-- ── Deep shadow rings (3-D depth base) ── -->
+  <circle cx="151" cy="181" r="90" fill="none" stroke="#061228" stroke-width="18"/>
+  <circle cx="255" cy="181" r="90" fill="none" stroke="#061228" stroke-width="18"/>
+
+  <!-- ── Glow halo rings ── -->
+  <circle cx="148" cy="178" r="90" fill="none" stroke="#0078d7" stroke-width="24" opacity="0.22" filter="url(#outerGlow)"/>
+  <circle cx="252" cy="178" r="90" fill="none" stroke="#00cccc" stroke-width="24" opacity="0.22" filter="url(#outerGlow)"/>
+
+  <!-- ── Main ring strokes ── -->
+  <circle cx="148" cy="178" r="90" fill="none" stroke="url(#gMain)" stroke-width="11" filter="url(#strokeGlow)"/>
+  <circle cx="252" cy="178" r="90" fill="none" stroke="url(#gRev)"  stroke-width="11" filter="url(#strokeGlow)"/>
+
+  <!-- ── Top highlight sheen on rings ── -->
+  <circle cx="148" cy="178" r="90" fill="none" stroke="url(#gSheen)" stroke-width="5"/>
+  <circle cx="252" cy="178" r="90" fill="none" stroke="url(#gSheen)" stroke-width="5"/>
+
+  <!-- ══════════════════════════════════════════════════
+       Z  LETTERFORM  (left ring, centred ≈148)
+  ══════════════════════════════════════════════════ -->
+  <!-- Shadow layer -->
+  <g transform="translate(2,2)" opacity="0.5">
+    <line x1="80"  y1="122" x2="205" y2="122" stroke="#061228" stroke-width="14" stroke-linecap="round"/>
+    <line x1="205" y1="122" x2="80"  y2="234" stroke="#061228" stroke-width="14" stroke-linecap="round"/>
+    <line x1="80"  y1="234" x2="205" y2="234" stroke="#061228" stroke-width="14" stroke-linecap="round"/>
+  </g>
+  <!-- Main Z strokes -->
+  <line x1="80"  y1="122" x2="205" y2="122" stroke="url(#gMain)" stroke-width="11" stroke-linecap="round" filter="url(#strokeGlow)"/>
+  <line x1="205" y1="122" x2="80"  y2="234" stroke="url(#gMain)" stroke-width="11" stroke-linecap="round" filter="url(#strokeGlow)"/>
+  <line x1="80"  y1="234" x2="205" y2="234" stroke="url(#gMain)" stroke-width="11" stroke-linecap="round" filter="url(#strokeGlow)"/>
+  <!-- Z highlight -->
+  <line x1="80"  y1="122" x2="205" y2="122" stroke="url(#gSheen)" stroke-width="4" stroke-linecap="round"/>
+  <line x1="205" y1="122" x2="80"  y2="234" stroke="url(#gSheen)" stroke-width="4" stroke-linecap="round"/>
+  <line x1="80"  y1="234" x2="205" y2="234" stroke="url(#gSheen)" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- ══════════════════════════════════════════════════
+       J / "2"  LETTERFORM  (right ring, centred ≈252)
+       Dot at top-right (~1 o'clock), vertical stem, bottom hook
+  ══════════════════════════════════════════════════ -->
+  <!-- Shadow layer -->
+  <g transform="translate(2,2)" opacity="0.5">
+    <circle cx="296" cy="115" r="12" fill="#061228"/>
+    <line x1="278" y1="126" x2="278" y2="220" stroke="#061228" stroke-width="14" stroke-linecap="round"/>
+    <path d="M278,220 Q278,255 250,260 Q225,264 218,248" fill="none" stroke="#061228" stroke-width="14" stroke-linecap="round"/>
+  </g>
+  <!-- Main J strokes -->
+  <circle cx="294" cy="113" r="12" fill="url(#gRev)"  filter="url(#strokeGlow)"/>
+  <line x1="276" y1="124" x2="276" y2="218" stroke="url(#gRev)" stroke-width="11" stroke-linecap="round" filter="url(#strokeGlow)"/>
+  <path d="M276,218 Q276,253 248,258 Q223,262 216,246" fill="none" stroke="url(#gRev)" stroke-width="11" stroke-linecap="round" filter="url(#strokeGlow)"/>
+  <!-- J highlight -->
+  <circle cx="294" cy="113" r="7" fill="url(#gSheen)" opacity="0.6"/>
+  <line x1="276" y1="124" x2="276" y2="218" stroke="url(#gSheen)" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- ══════════════════════════════════════════════════
+       WORDMARK
+  ══════════════════════════════════════════════════ -->
+  <!-- ZILJ TECH -->
+  <text x="200" y="348"
+        text-anchor="middle"
+        font-family="Montserrat, Arial Black, sans-serif"
+        font-size="40" font-weight="800" letter-spacing="5"
+        fill="url(#gText)"
+        filter="url(#textGlow)">ZILJ TECH</text>
+
+  <!-- PRIVATE LIMITED -->
+  <text x="200" y="381"
+        text-anchor="middle"
+        font-family="Montserrat, Arial, sans-serif"
+        font-size="13" font-weight="600" letter-spacing="5.5"
+        fill="#00cccc">PRIVATE LIMITED</text>
+</svg>

@@ -1,2 +1,160 @@
-// This file is empty within the template
-// You can use it to override CSS from within your project
+// =============================================
+// MODERN DESIGN OVERRIDES
+// Clean & Minimal refresh
+// =============================================
+
+// ---- Section enhancements ----
+
+.section.bg-light {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%) !important;
+}
+
+// ---- Banner polish ----
+
+.banner .col-lg-10 {
+  position: relative;
+  z-index: 1;
+}
+
+// ---- Feature section label ----
+
+.section > .container > .row > .col-12.text-center {
+  margin-bottom: 12px;
+}
+
+// ---- Call to action block ----
+
+.section .container.section.shadow.rounded-lg {
+  background: linear-gradient(135deg, #0EA5E9 0%, #0284c7 100%);
+  border: none;
+  padding: 56px 48px;
+
+  h2 {
+    color: #ffffff !important;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  .btn-primary {
+    background-color: #ffffff !important;
+    color: #0EA5E9 !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+
+    &:hover {
+      background-color: #f8fafc !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+    }
+  }
+}
+
+// ---- Footer ----
+
+footer.bg-light {
+  background: #f8fafc !important;
+  border-top: 1px solid #e2e8f0;
+
+  .border-top {
+    border-color: #e2e8f0 !important;
+  }
+
+  .h3 {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #0f172a;
+    margin-bottom: 20px;
+  }
+
+  small.content {
+    color: #94a3b8;
+    font-size: 14px;
+  }
+}
+
+// ---- Nav button ----
+
+.btn.btn-sm.btn-primary.ml-3 {
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(14, 165, 233, 0.3);
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35) !important;
+    transform: translateY(-1px);
+  }
+}
+
+// ---- Image polish ----
+
+.section img.img-fluid:not(.img-fluid.mt-5):not(.navbar-brand img) {
+  border-radius: 14px;
+}
+
+// ---- Page header ----
+
+.page-header {
+  background: linear-gradient(160deg, #f8fafc 0%, #f1f5f9 100%);
+  padding: 72px 0 56px;
+  border-bottom: 1px solid #e2e8f0;
+
+  h1 {
+    font-size: 40px;
+    letter-spacing: -0.04em;
+  }
+}
+
+// ---- Blog post cards ----
+
+.card-body {
+  padding: 20px 24px;
+}
+
+// ---- Pricing card highlight ----
+
+.col-recommended .card,
+.col-recommended .pricing-card {
+  background: linear-gradient(135deg, #0EA5E9 0%, #0284c7 100%);
+  border-color: transparent;
+  color: $white;
+
+  * {
+    color: $white !important;
+  }
+
+  .btn-outline-primary {
+    background-color: rgba(255,255,255,0.15) !important;
+    border-color: rgba(255,255,255,0.4) !important;
+    color: $white !important;
+
+    &:hover {
+      background-color: $white !important;
+      color: #0EA5E9 !important;
+    }
+  }
+}
+
+// ---- Smooth scroll ----
+
+html {
+  scroll-behavior: smooth;
+}
+
+// ---- Focus ring ----
+
+*:focus-visible {
+  outline: 2px solid rgba(14, 165, 233, 0.5);
+  outline-offset: 3px;
+}
+
+// ---- Divider between sections ----
+
+.section + .section {
+  border-top: 1px solid transparent;
+}

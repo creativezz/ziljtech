@@ -8,20 +8,18 @@
 ######################### site variables ##############################
 # customize your color and font from here.
 [params.variables]
-primary_color = "#0AA8A7"
-text_color = "#777"
-text_color_dark = "#222"
-body_color = "#fff"
-border_color = "#ECECEC"
-black = "#000"
-white = "#fff"
-light = "#EDF6F5"
+primary_color = "#0078D7"
+text_color = "#94a3b8"
+text_color_dark = "#F8F9FA"
+body_color = "#0A192F"
+border_color = "#1e3050"
+black = "#0A192F"
+white = "#F8F9FA"
+light = "#0d2137"
 
 # font variable
-# Give your font name from google font. add font weight using ":wght@" and separate by ";"
-# example: "Work Sans:wght@400;500;600"
-primary_font = "Lato:wght@400"
-primary_font_type = "sans-serif" # [serif/sans-serif]
+primary_font = "Montserrat:wght@600;700;800"
+primary_font_type = "sans-serif"
 icon_font = "Font Awesome 5 Free"
 
 

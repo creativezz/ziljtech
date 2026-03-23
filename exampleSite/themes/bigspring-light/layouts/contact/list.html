@@ -1,22 +1,157 @@
 {{ define "main" }}
 
-{{ partial "page-header.html" . }}
-<section class="section bg-white">
+<!-- Contact Hero Header -->
+<section class="contact-hero">
+  <div class="contact-hero-bg"></div>
   <div class="container">
-    <div class="row">
-      <div class="col-lg-7 mb-4 mb-lg-0">
-        <form action="{{ site.Params.contact_form_action | safeURL }}" method="POST">
-          <input type="text" class="form-control mb-3" id="name" name="name" placeholder="{{ i18n `yourname` }}">
-          <input type="email" class="form-control mb-3" id="mail" name="mail" placeholder="{{ i18n `youremail` }}">
-          <input type="text" class="form-control mb-3" id="subject" name="subject" placeholder="{{ i18n `subject` }}">
-          <textarea name="message" id="message" class="form-control mb-3" placeholder="{{ i18n `yourmessage` }}"></textarea>
-          <button type="submit" value="send" class="btn btn-primary">{{ i18n `sendnow` }}</button>
-        </form>
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-8">
+        <span class="section-label">Get In Touch</span>
+        <h1 class="contact-hero-title">Let's Build Something <span class="text-gradient">Great Together</span></h1>
+        <p class="contact-hero-sub">Have a project in mind or need expert IT advice? Our team is ready to help you turn your vision into reality.</p>
       </div>
-      
-      <div class="col-lg-5 content">
-        {{ .Content }}
+    </div>
+  </div>
+</section>
+
+<!-- Contact Info Cards Row -->
+<section class="contact-cards-section">
+  <div class="container">
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-4">
+        <div class="contact-info-card">
+          <div class="contact-info-icon">
+            <i class="fas fa-phone-alt"></i>
+          </div>
+          <h5>Call Us</h5>
+          <p>Mon–Sat, 9am – 6pm IST</p>
+          <a href="tel:+919567668085">+91 9567 668 085</a>
+        </div>
       </div>
+      <div class="col-md-4">
+        <div class="contact-info-card contact-info-card--featured">
+          <div class="contact-info-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h5>Email Us</h5>
+          <p>We reply within 24 hours</p>
+          <a href="mailto:ziljtech@gmail.com">ziljtech@gmail.com</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="contact-info-card">
+          <div class="contact-info-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <h5>Visit Us</h5>
+          <p>236/16, Cherai Beach Road, Pallippuram<br>Ernakulam, Kerala — 683514</p>
+          <a href="https://maps.google.com/?q=Cherai+Beach+Road+Pallippuram+Ernakulam+Kerala" target="_blank">Get Directions</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Form + Details -->
+<section class="section contact-form-section">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+
+      <!-- Left: Form -->
+      <div class="col-lg-7">
+        <div class="contact-form-card">
+          <div class="contact-form-header">
+            <h2>Send Us a Message</h2>
+            <p>Fill in the form below and we'll get back to you within one business day.</p>
+          </div>
+          <form action="{{ site.Params.contact_form_action | safeURL }}" method="POST" class="contact-form">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Your Name</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="John Smith" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Email Address</label>
+                  <input type="email" class="form-control" id="mail" name="mail" placeholder="john@company.com" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Phone Number</label>
+                  <input type="text" class="form-control" id="phone" name="phone" placeholder="+91 XXXXX XXXXX">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Service Needed</label>
+                  <select class="form-control" name="service">
+                    <option value="" disabled selected>Select a service</option>
+                    <option>Custom Software Development</option>
+                    <option>Mobile App Development</option>
+                    <option>Web Services</option>
+                    <option>Cloud &amp; DevOps</option>
+                    <option>UI/UX Design</option>
+                    <option>Cybersecurity</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label class="form-label">Subject</label>
+                  <input type="text" class="form-control" id="subject" name="subject" placeholder="Project brief or inquiry topic">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label class="form-label">Your Message</label>
+                  <textarea name="message" id="message" class="form-control" rows="5" placeholder="Tell us about your project, goals, or any questions you have..."></textarea>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-contact-submit">
+                  <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+                <p class="form-note">We respect your privacy. Your information is never shared.</p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right: Details -->
+      <div class="col-lg-5">
+        <div class="contact-details">
+          <h3 class="contact-details-title">Why Work With Us?</h3>
+          <ul class="contact-reasons">
+            <li><i class="fas fa-check-circle"></i> <span><strong>Free Initial Consultation</strong> — 30-minute strategy call with a senior engineer, no obligations.</span></li>
+            <li><i class="fas fa-check-circle"></i> <span><strong>Fixed-Price Projects</strong> — Clear scope, no surprise invoices. We commit to budget and timeline.</span></li>
+            <li><i class="fas fa-check-circle"></i> <span><strong>Dedicated Project Manager</strong> — Single point of contact, daily updates, full transparency.</span></li>
+            <li><i class="fas fa-check-circle"></i> <span><strong>Post-Launch Support</strong> — 90-day free maintenance window after every project delivery.</span></li>
+            <li><i class="fas fa-check-circle"></i> <span><strong>NDA on Request</strong> — Your ideas and business data stay completely confidential.</span></li>
+          </ul>
+
+          <div class="contact-response-badge">
+            <div class="response-dot"></div>
+            <span>Average response time: <strong>under 4 hours</strong></span>
+          </div>
+
+          <div class="contact-social">
+            <h6>Follow ZILJ Tech</h6>
+            <div class="social-icons">
+              {{ range site.Params.social }}
+              <a href="{{ .link }}" title="{{ .title }}" target="_blank">
+                <i class="{{ .icon }}"></i>
+              </a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>

@@ -2,15 +2,15 @@
 [en]
 languageName = "En"
 title = "ZILJ Tech"
-contentDir = "content/english" # content/english
+contentDir = "content/english"
 weight = 1
 ########### footer content ##########
-footer_menu_left = "Company"
-footer_menu_middle = "Company"
-footer_menu_right = "Support"
-footer_content = "ziljtech@gmail.com \n \n+91 9567668085"
+footer_menu_left = "Quick Links"
+footer_menu_middle = "Legal"
+footer_menu_right = "Legal"
+footer_content = "236/16, ZILJ TECH PRIVATE LIMITED<br>Cherai Beach Road, Pallippuram<br>Ernakulam, Kerala — 683514<br><br>ziljtech@gmail.com<br>+91 9567668085"
 # copyright
-copyright = "Design By ZILJ Tech "
+copyright = "© 2024 ZILJ Tech Private Limited. All Rights Reserved."
 
 
 

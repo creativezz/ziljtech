@@ -1,48 +1,43 @@
 ---
 ####################### Banner #########################
 banner:
-  title : "Let us solve your critical website and app <br> development challenges"
+  title : "Transforming Businesses Through **Intelligent Technology**"
   image : "images/banner-art.svg"
-  content : "Have An Amazing Idea in Mind? Contact Us Now! We have team of experts who can help you to convert your idea into reality!"
+  content : "ZILJ Tech Private Limited delivers cutting-edge IT services, cloud infrastructure, and bespoke software solutions that empower organizations to scale with confidence, innovate rapidly, and outperform the competition."
   button:
     enable : true
-    label : "Contact Us"
+    label : "Get a Free Consultation"
     link : "contact/"
 
 ##################### Feature ##########################
 feature:
   enable : true
-  title : "ZILJ TECH MAJOR FOOTPRINTS"
+  title : "Why Industry Leaders Choose ZILJ Tech"
   feature_item:
-    # feature item loop
-    - name : "Clean Code"
-      icon : "fas fa-code"
-      content : "A core part of good software is readability. Keeping the mental complexity low so that everybody (including the author) has an easy time understanding it. Clean code patterns help to do so."
-      
-    # feature item loop
-    - name : "Android and IOS Dev"
-      icon : "fas fa-object-group"
-      content : "We are specialised in creating and developing Android and IOS dev. software of any large and small business."
-      
-    # feature item loop
-    - name : "Web Services"
-      icon : "fas fa-user-clock"
-      content : "Specialising in creating highly performing site for small and large enterprise business."
-      
-    # feature item loop
-    - name : "UI/UX Design"
-      icon : "fas fa-heart"
-      content : "As a full-service UX design agency, we work closely with our clients to define, design, and develop transformative user experiences across all platforms and brand's touch points."
 
-    - name : "CLOUD"
-      icon : "fas fa-heart"
-      content : "With a growing number of people using the internet, integrated cloud solutions ensure systems run stable."
+    - name : "Custom Software Development"
+      icon : "fas fa-code"
+      content : "We architect and deliver scalable, maintainable software tailored to your exact business workflows — from enterprise platforms to lightweight microservices."
+
+    - name : "Mobile App Development"
+      icon : "fas fa-mobile-alt"
+      content : "Native and cross-platform iOS & Android apps engineered for performance, designed for delight. From MVP to millions of users, we build apps that grow with you."
+
+    - name : "Web & API Services"
+      icon : "fas fa-globe"
+      content : "High-performance web applications and RESTful APIs built on modern stacks. We specialize in fast, SEO-optimized, and globally distributed web platforms."
+
+    - name : "UI/UX Design"
+      icon : "fas fa-pencil-ruler"
+      content : "User-first design that converts. Our UX designers research, prototype, and test every interface to ensure intuitive, accessible, and beautiful digital experiences."
+
+    - name : "Cloud & DevOps"
+      icon : "fas fa-cloud"
+      content : "Multi-cloud architecture on AWS, Azure, and GCP. We design CI/CD pipelines, containerized deployments, and auto-scaling infrastructure for 99.99% uptime."
 
     - name : "Linux Web Hosting"
-      icon : "fas fa-heart"
-      content : "Linux web hosting from the number one hosting provider guarantees quality at affordable rates.Our Linux hosting provides everything that the web developer needs for a functional website. Diverse scripting language support at your foot step."    
-
-      
+      icon : "fas fa-server"
+      content : "Enterprise-grade Linux hosting with cPanel, SSD NVMe storage, free SSL, DDoS protection, and 24/7 expert monitoring — optimized for speed and security."
 
 
 ######################### Service #####################
@@ -50,27 +45,49 @@ service:
   enable : true
   service_item:
 
-        
+    - title : "End-to-End Digital Transformation"
+      images :
+        - "images/service-1.png"
+      content : "We partner with businesses at every stage of their digital journey. From legacy system modernization to full-stack cloud migration, our certified engineers design future-proof technology strategies. We've helped clients reduce operational costs by 40%, accelerate time-to-market by 3x, and unlock new revenue streams through data-driven automation. Whether you're a startup scaling fast or an enterprise re-platforming, ZILJ Tech delivers measurable results."
+      button:
+        enable : true
+        label : "Learn About Our Process"
+        link : "contact/"
+
+    - title : "Cybersecurity & Compliance Solutions"
+      images :
+        - "images/service-2.png"
+      content : "In today's threat landscape, security cannot be an afterthought. ZILJ Tech provides comprehensive cybersecurity services including vulnerability assessments, penetration testing, SIEM implementation, and ISO 27001 compliance consulting. Our security-first development practices ensure every product we build is fortified against modern threats, keeping your data — and your customers' trust — safe at all times."
+      button:
+        enable : true
+        label : "Secure Your Business"
+        link : "contact/"
+
+    - title : "Data Analytics & AI Integration"
+      images :
+        - "images/service-3.png"
+      content : "Turn raw data into competitive advantage. Our data engineering team builds real-time analytics dashboards, predictive models, and AI-powered automation that give you actionable insights at the speed of business. From ETL pipelines to machine learning model deployment, we bridge the gap between your data and the decisions that drive growth. Our clients report an average 60% improvement in decision-making speed after deploying our analytics solutions."
+      button:
+        enable : true
+        label : "Explore AI Solutions"
+        link : "contact/"
 
 
-
-        
 ################### Screenshot ########################
 screenshot:
   enable : true
-  title : "Experience the best <br> workflow with us"
+  title : "Experience the future of **IT delivery**"
   image : "images/screenshot.svg"
 
-  
 
 ##################### Call to action #####################
 call_to_action:
   enable : true
-  title : "Ready to get started?"
+  title : "Ready to Build Something Exceptional?"
   image : "images/cta.svg"
-  content : "Have An Amazing Idea in Mind? Contact Us Now! We have team of experts who can help you to convert your idea into reality!"
+  content : "Join 200+ businesses that trust ZILJ Tech to power their most critical technology initiatives. Let's discuss your project — no commitment, just expert advice."
   button:
     enable : true
-    label : "Contact Us"
+    label : "Start Your Project Today"
     link : "contact/"
 ---

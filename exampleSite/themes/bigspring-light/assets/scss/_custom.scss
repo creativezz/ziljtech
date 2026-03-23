@@ -1,2 +1,459 @@
-// This file is empty within the template
-// You can use it to override CSS from within your project
+// =============================================
+// ZILJ TECH — DARK THEME OVERRIDES
+// Brand: #0078D7 blue + #00CCCC cyan
+// =============================================
+
+// ── Page entrance animation ──────────────────
+html { scroll-behavior: smooth; }
+
+body {
+  animation: pageEnter 0.45s ease both;
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ── Global dark overrides ────────────────────
+select, input, textarea {
+  color-scheme: dark;
+}
+
+// ── Cyan accent text ─────────────────────────
+.text-cyan { color: #00CCCC !important; }
+.text-blue  { color: #0078D7 !important; }
+
+// ── Gradient text utility ────────────────────
+.text-gradient {
+  background: linear-gradient(90deg, #0078D7, #00CCCC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ── Glowing divider ──────────────────────────
+.divider-glow {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #0078D7, #00CCCC, transparent);
+  margin: 0;
+  opacity: 0.5;
+}
+
+// ── Stats bar (numbers at a glance) ─────────
+.stat-item {
+  text-align: center;
+  padding: 20px 10px;
+
+  .stat-number {
+    font-size: 42px;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #0078D7, #00CCCC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 6px;
+  }
+}
+
+// ── CTA section ─────────────────────────────
+.section .container.section.shadow.rounded-lg {
+  background: linear-gradient(135deg, #003d80 0%, #005fa3 50%, #007acc 100%);
+  border: 1px solid rgba(0,204,204,0.2);
+  padding: 60px 48px;
+
+  h2 { color: #F8F9FA !important; }
+  p  { color: rgba(248,249,250,0.8) !important; }
+
+  .btn-primary {
+    background: #F8F9FA !important;
+    color: #0078D7 !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25) !important;
+    &:hover {
+      background: #ffffff !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.3) !important;
+    }
+  }
+}
+
+// ── Page header ──────────────────────────────
+.page-header {
+  background: linear-gradient(160deg, #0b1e38 0%, #0d2137 100%);
+  padding: 80px 0 60px;
+  border-bottom: 1px solid rgba(0,120,215,0.15);
+
+  h1 { font-size: 40px; letter-spacing: -0.03em; color: #F8F9FA; }
+}
+
+// ── Nav button ───────────────────────────────
+.btn.btn-sm.btn-primary.ml-3 {
+  border-radius: 8px;
+  background: linear-gradient(135deg, #0078D7, #0056a3);
+  box-shadow: 0 2px 12px rgba(0,120,215,0.4);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0,120,215,0.55) !important;
+    transform: translateY(-1px);
+  }
+}
+
+// ── Section separator ────────────────────────
+.section + .section {
+  border-top: 1px solid transparent;
+}
+
+// ── Service images ───────────────────────────
+.section img.img-fluid {
+  border-radius: 14px;
+  border: 1px solid rgba(0,120,215,0.15);
+  box-shadow: 0 16px 56px rgba(0,0,0,0.4);
+}
+
+// ── Focus ring ───────────────────────────────
+*:focus-visible {
+  outline: 2px solid rgba(0, 204, 204, 0.55);
+  outline-offset: 3px;
+}
+
+// ── Card body ────────────────────────────────
+.card-body { padding: 22px 26px; }
+.card-body p { color: #94a3b8; }
+.card-body small { color: #64748b; }
+.card-body .post-meta { color: #4a6080; font-size: 13px; }
+
+// ── Pricing card highlight ───────────────────
+.col-recommended .card {
+  background: linear-gradient(135deg, #003d80 0%, #005fa3 100%);
+  border-color: rgba(0,204,204,0.3);
+
+  * { color: #F8F9FA !important; }
+
+  .btn-outline-primary {
+    background: rgba(255,255,255,0.1) !important;
+    border-color: rgba(255,255,255,0.4) !important;
+    color: #F8F9FA !important;
+
+    &:hover {
+      background: #F8F9FA !important;
+      color: #0078D7 !important;
+    }
+  }
+}
+
+// ── Screenshot section ───────────────────────
+.section.pb-0 img {
+  border-radius: 14px 14px 0 0;
+  border: 1px solid rgba(0,120,215,0.2);
+  border-bottom: none;
+  box-shadow: 0 -8px 48px rgba(0,120,215,0.1);
+}
+
+// ── Glow on primary color elements ──────────
+.text-primary { color: #00CCCC !important; }
+.bg-primary { background: linear-gradient(135deg, #0078D7, #005fa3) !important; }
+
+// =============================================
+// CONTACT PAGE
+// =============================================
+
+// ── Contact Hero ─────────────────────────────
+.contact-hero {
+  position: relative;
+  padding: 110px 0 70px;
+  background: #0A192F;
+  overflow: hidden;
+  text-align: center;
+
+  .contact-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 20% 50%, rgba(0,120,215,0.1) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 80% 50%, rgba(0,204,204,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .container { position: relative; z-index: 1; }
+
+  .contact-hero-title {
+    font-size: 48px;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    color: #F8F9FA;
+    margin: 12px 0 18px;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+
+    @media (max-width: 767px) { font-size: 32px; }
+  }
+
+  .contact-hero-sub {
+    font-size: 17px;
+    color: #94a3b8;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+}
+
+// ── Contact Info Cards ────────────────────────
+.contact-cards-section {
+  background: #0A192F;
+  padding: 0 0 60px;
+}
+
+.contact-info-card {
+  background: #0d2137;
+  border: 1px solid #1e3050;
+  border-radius: 16px;
+  padding: 32px 28px;
+  text-align: center;
+  transition: all 0.3s ease;
+  height: 100%;
+
+  &:hover {
+    border-color: rgba(0,120,215,0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+  }
+
+  &--featured {
+    border-color: rgba(0,120,215,0.35);
+    background: linear-gradient(160deg, #0d2137 0%, #0b1e38 100%);
+    box-shadow: 0 0 0 1px rgba(0,204,204,0.1), 0 8px 32px rgba(0,0,0,0.3);
+
+    .contact-info-icon {
+      background: rgba(0,204,204,0.12);
+      border-color: rgba(0,204,204,0.25);
+      color: #00CCCC;
+    }
+
+    h5 { color: #00CCCC; }
+  }
+
+  .contact-info-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    background: rgba(0,120,215,0.1);
+    border: 1px solid rgba(0,120,215,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    font-size: 22px;
+    color: #0078D7;
+    transition: all 0.3s ease;
+  }
+
+  h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #F8F9FA;
+    margin-bottom: 6px;
+  }
+
+  p {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  a {
+    font-size: 15px;
+    font-weight: 600;
+    color: #94a3b8;
+    font-family: 'Roboto', sans-serif;
+    transition: color 0.2s;
+
+    &:hover { color: #00CCCC; }
+  }
+}
+
+// ── Contact Form Section ─────────────────────
+.contact-form-section {
+  background: linear-gradient(180deg, #0b1e38 0%, #0A192F 100%);
+}
+
+// ── Form Card ────────────────────────────────
+.contact-form-card {
+  background: #0d2137;
+  border: 1px solid #1e3050;
+  border-radius: 20px;
+  padding: 44px 40px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+
+  @media (max-width: 575px) { padding: 28px 20px; }
+}
+
+.contact-form-header {
+  margin-bottom: 32px;
+
+  h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: #F8F9FA;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    color: #64748b;
+    font-size: 15px;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  color: #94a3b8;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+.form-group { margin-bottom: 4px; }
+
+select.form-control {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  cursor: pointer;
+}
+
+.btn-contact-submit {
+  padding: 15px 36px;
+  font-size: 16px;
+  border-radius: 12px;
+  margin-top: 8px;
+  width: 100%;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 6px 24px rgba(0,120,215,0.4);
+
+  &:hover {
+    box-shadow: 0 10px 32px rgba(0,120,215,0.55) !important;
+  }
+}
+
+.form-note {
+  font-size: 12px;
+  color: #4a6080;
+  text-align: center;
+  margin-top: 12px;
+  margin-bottom: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+// ── Contact Details Right Panel ───────────────
+.contact-details {
+  padding: 8px 0;
+}
+
+.contact-details-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  color: #F8F9FA;
+  margin-bottom: 28px;
+  letter-spacing: -0.02em;
+}
+
+.contact-reasons {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    color: #94a3b8;
+    line-height: 1.6;
+
+    &:last-child { border-bottom: none; }
+
+    i {
+      color: #00CCCC;
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    strong { color: #F8F9FA; font-weight: 600; }
+  }
+}
+
+// ── Response badge ────────────────────────────
+.contact-response-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0,204,204,0.08);
+  border: 1px solid rgba(0,204,204,0.2);
+  border-radius: 100px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-family: 'Roboto', sans-serif;
+  color: #94a3b8;
+  margin-bottom: 32px;
+
+  strong { color: #00CCCC; }
+
+  .response-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #00CCCC;
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+  }
+}
+
+// ── Contact social ────────────────────────────
+.contact-social {
+  h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #4a6080;
+    margin-bottom: 14px;
+  }
+}
+
+// ── Navbar logo size ──────────────────────────
+.navbar-brand img {
+  height: auto;
+  width: 110px;
+  max-height: 115px;
+  background: transparent;
+  mix-blend-mode: normal;
+}

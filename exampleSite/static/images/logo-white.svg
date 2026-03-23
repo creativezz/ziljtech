@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 66" width="310" height="66">
+  <defs>
+    <linearGradient id="gM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#1a6fd4"/>
+      <stop offset="100%" stop-color="#00cccc"/>
+    </linearGradient>
+    <linearGradient id="gR" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#00cccc"/>
+      <stop offset="100%" stop-color="#1a6fd4"/>
+    </linearGradient>
+    <linearGradient id="gSh" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#7fd4f0" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#0078d7" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="gTxt" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#1a8fe0"/>
+      <stop offset="100%" stop-color="#00cccc"/>
+    </linearGradient>
+    <filter id="gl" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.8" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="tgl" x="-20%" y="-60%" width="140%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Mark scaled to 62px tall, centred at (35, 33) -->
+  <!-- Scale factor: 62/180 ≈ 0.344 from the 400×460 logo mark -->
+  <g transform="translate(35,33) scale(0.334)">
+
+    <!-- Deep shadow rings -->
+    <circle cx="4"  cy="4"  r="90" fill="none" stroke="#061228" stroke-width="18" opacity="0.7"/>
+    <circle cx="108" cy="4" r="90" fill="none" stroke="#061228" stroke-width="18" opacity="0.7"/>
+
+    <!-- Halo glow -->
+    <circle cx="0"   cy="0"   r="90" fill="none" stroke="#0078d7" stroke-width="22" opacity="0.2" filter="url(#gl)"/>
+    <circle cx="104" cy="0"   r="90" fill="none" stroke="#00cccc" stroke-width="22" opacity="0.2" filter="url(#gl)"/>
+
+    <!-- Main rings  (left centre 0,0 ; right centre 104,0) -->
+    <circle cx="0"   cy="0"  r="90" fill="none" stroke="url(#gM)" stroke-width="11" filter="url(#gl)"/>
+    <circle cx="104" cy="0"  r="90" fill="none" stroke="url(#gR)" stroke-width="11" filter="url(#gl)"/>
+
+    <!-- Sheen -->
+    <circle cx="0"   cy="0"  r="90" fill="none" stroke="url(#gSh)" stroke-width="5"/>
+    <circle cx="104" cy="0"  r="90" fill="none" stroke="url(#gSh)" stroke-width="5"/>
+
+    <!-- Z (left, x: -68 to +57, y: -56 to +56) -->
+    <line x1="-68" y1="-56" x2="57"  y2="-56" stroke="url(#gM)" stroke-width="11" stroke-linecap="round" filter="url(#gl)"/>
+    <line x1="57"  y1="-56" x2="-68" y2="56"  stroke="url(#gM)" stroke-width="11" stroke-linecap="round" filter="url(#gl)"/>
+    <line x1="-68" y1="56"  x2="57"  y2="56"  stroke="url(#gM)" stroke-width="11" stroke-linecap="round" filter="url(#gl)"/>
+    <!-- Z sheen -->
+    <line x1="-68" y1="-56" x2="57"  y2="-56" stroke="url(#gSh)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="57"  y1="-56" x2="-68" y2="56"  stroke="url(#gSh)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- J (right, dot at ~(146,-65), stem, hook) -->
+    <circle cx="146" cy="-65" r="12" fill="url(#gR)" filter="url(#gl)"/>
+    <line x1="128" y1="-54" x2="128" y2="42" stroke="url(#gR)" stroke-width="11" stroke-linecap="round" filter="url(#gl)"/>
+    <path d="M128,42 Q128,77 100,82 Q75,86 68,70" fill="none" stroke="url(#gR)" stroke-width="11" stroke-linecap="round" filter="url(#gl)"/>
+    <!-- J dot sheen -->
+    <circle cx="146" cy="-65" r="7" fill="url(#gSh)" opacity="0.6"/>
+
+  </g>
+
+  <!-- Wordmark: ZILJ (white) + space + TECH (gradient) -->
+  <text x="79" y="25"
+        font-family="Montserrat, Arial Black, sans-serif"
+        font-size="21" font-weight="800" letter-spacing="1.5"
+        fill="#e8f4ff">ZILJ </text>
+  <text x="122" y="25"
+        font-family="Montserrat, Arial Black, sans-serif"
+        font-size="21" font-weight="800" letter-spacing="1.5"
+        fill="url(#gTxt)" filter="url(#tgl)">TECH</text>
+
+  <!-- Tagline -->
+  <text x="79" y="45"
+        font-family="Montserrat, Arial, sans-serif"
+        font-size="10" font-weight="600" letter-spacing="3.8"
+        fill="#00cccc">PRIVATE LIMITED</text>
+</svg>

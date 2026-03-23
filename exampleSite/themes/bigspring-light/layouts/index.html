@@ -2,15 +2,20 @@
 
 <!-- banner -->
 {{ with .Params.banner }}
-<section class="banner">
+<section class="banner" id="home">
+  <div id="particles-js"></div>
   <div class="container">
     <div class="row">
       <div class="col-lg-10 mx-auto text-center">
+        <div class="banner-badge">Trusted IT Partner Since 2020</div>
         <h1 class="mb-3">{{ .title | markdownify }}</h1>
         <p class="mb-4">{{ .content | markdownify }}</p>
         {{ if .button.enable }}
         {{ with .button }}
-        <div><a href="{{ .link | safeURL }}" title="{{ .label }}" class="btn btn-primary">{{ .label }}</a></div>
+        <div>
+          <a href="{{ .link | safeURL }}" title="{{ .label }}" class="btn btn-primary">{{ .label }}</a>
+          <a href="#features" title="Our Services" class="btn btn-outline-primary">Explore Services</a>
+        </div>
         {{ end }}
         {{ end }}
 
@@ -25,7 +30,7 @@
 <!-- feature -->
 {{ with .Params.feature }}
 {{ if .enable }}
-<section class="section bg-light">
+<section class="section bg-light" id="features">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 text-center">

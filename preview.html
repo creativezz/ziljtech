@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ZiljTech – Modern Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0EA5E9;
+      --primary-dark: #0284c7;
+      --text: #64748b;
+      --text-dark: #0f172a;
+      --border: #e2e8f0;
+      --light: #f8fafc;
+      --white: #fff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: var(--text);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ---- NAV ---- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s;
+    }
+    .nav.scrolled { box-shadow: 0 1px 20px rgba(15,23,42,.06); background: rgba(255,255,255,.97); }
+    .nav-inner {
+      max-width: 1140px; margin: 0 auto;
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-brand {
+      font-size: 18px; font-weight: 700; letter-spacing: -0.04em; color: var(--text-dark);
+    }
+    .nav-links { display: flex; gap: 4px; }
+    .nav-link {
+      padding: 8px 14px; border-radius: 8px; font-size: 15px; font-weight: 500;
+      color: var(--text); transition: color .2s, background .2s;
+    }
+    .nav-link:hover { color: var(--primary); background: var(--light); }
+    .btn-nav {
+      background: var(--primary); color: #fff; padding: 9px 18px;
+      border-radius: 8px; font-size: 14px; font-weight: 600; border: none; cursor: pointer;
+      box-shadow: 0 1px 3px rgba(14,165,233,.35);
+      transition: all .2s;
+    }
+    .btn-nav:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(14,165,233,.35); }
+
+    /* ---- BANNER ---- */
+    .banner {
+      padding: 120px 24px 90px;
+      background: linear-gradient(160deg, #f8fafc 0%, #fff 60%);
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .banner::before {
+      content: '';
+      position: absolute; top: -40%; right: -15%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(14,165,233,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .banner-tag {
+      display: inline-block;
+      font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--primary); background: rgba(14,165,233,.08);
+      padding: 5px 14px; border-radius: 100px; margin-bottom: 24px;
+    }
+    .banner h1 {
+      font-size: 58px; font-weight: 700; letter-spacing: -0.04em; line-height: 1.08;
+      color: var(--text-dark); margin-bottom: 20px; max-width: 760px; margin-left: auto; margin-right: auto;
+    }
+    .banner p {
+      font-size: 18px; line-height: 1.7; color: var(--text);
+      max-width: 560px; margin: 0 auto 36px;
+    }
+    .banner-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--primary); color: #fff;
+      padding: 15px 32px; border-radius: 12px; font-size: 16px; font-weight: 600;
+      border: none; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(14,165,233,.3);
+      transition: all .2s;
+    }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(14,165,233,.35); }
+    .btn-outline {
+      background: #fff; color: var(--text-dark);
+      padding: 15px 32px; border-radius: 12px; font-size: 16px; font-weight: 600;
+      border: 1px solid var(--border); cursor: pointer;
+      box-shadow: 0 1px 3px rgba(15,23,42,.05);
+      transition: all .2s;
+    }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--light); transform: translateY(-1px); }
+
+    .banner-img {
+      margin: 60px auto 0; max-width: 900px; padding: 0 24px;
+    }
+    .banner-img-inner {
+      background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #e0f2fe 100%);
+      border-radius: 16px;
+      box-shadow: 0 24px 64px rgba(15,23,42,.1);
+      height: 340px; display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: #0284c7; font-weight: 500; letter-spacing: -.01em;
+    }
+
+    /* ---- FEATURES ---- */
+    .section {
+      padding: 90px 24px;
+    }
+    .section.bg-light { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
+    .container { max-width: 1140px; margin: 0 auto; }
+    .section-label {
+      font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--primary); margin-bottom: 12px; display: block; text-align: center;
+    }
+    .section-title {
+      font-size: 38px; font-weight: 700; letter-spacing: -0.035em; color: var(--text-dark);
+      text-align: center; margin-bottom: 16px; line-height: 1.15;
+    }
+    .section-desc {
+      font-size: 17px; line-height: 1.7; text-align: center;
+      max-width: 560px; margin: 0 auto 60px; color: var(--text);
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .feature-card {
+      border-radius: 14px; padding: 28px 24px;
+      background: var(--white); border: 1px solid var(--border);
+      transition: all .25s ease;
+    }
+    .feature-card:hover {
+      border-color: transparent;
+      box-shadow: 0 8px 32px rgba(15,23,42,.08);
+      transform: translateY(-3px);
+    }
+    .feature-icon {
+      width: 52px; height: 52px; border-radius: 10px;
+      background: rgba(14,165,233,.08);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px; font-size: 22px;
+    }
+    .feature-card h4 { font-size: 17px; font-weight: 700; color: var(--text-dark); letter-spacing: -.02em; margin-bottom: 10px; }
+    .feature-card p { font-size: 15px; line-height: 1.65; color: var(--text); }
+
+    /* ---- SERVICES ---- */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 60px; align-items: center; }
+    .service-tag { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--primary); margin-bottom: 12px; display: block; }
+    .service-title { font-size: 34px; font-weight: 700; letter-spacing: -0.035em; color: var(--text-dark); margin-bottom: 16px; line-height: 1.2; }
+    .service-desc { font-size: 16px; line-height: 1.75; color: var(--text); margin-bottom: 28px; }
+    .check-list { list-style: none; margin-bottom: 32px; }
+    .check-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 15px; line-height: 1.6; color: var(--text); margin-bottom: 12px;
+    }
+    .check-list li::before { content: '✓'; color: var(--primary); font-weight: 700; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .btn-link { color: var(--primary); font-weight: 600; font-size: 15px; display: inline-flex; align-items: center; gap: 6px; transition: gap .2s; }
+    .btn-link:hover { gap: 10px; color: var(--primary-dark); }
+    .service-img {
+      background: linear-gradient(135deg, #f0f9ff 0%, #bae6fd 100%);
+      border-radius: 16px; height: 360px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: #0284c7; font-weight: 500;
+      box-shadow: 0 8px 32px rgba(15,23,42,.08);
+    }
+
+    /* ---- CTA ---- */
+    .cta-block {
+      background: linear-gradient(135deg, #0EA5E9 0%, #0284c7 100%);
+      border-radius: 20px; padding: 72px 48px; text-align: center;
+      margin: 0 auto; max-width: 860px;
+    }
+    .cta-block h2 { font-size: 36px; font-weight: 700; letter-spacing: -.04em; color: #fff; margin-bottom: 16px; }
+    .cta-block p { color: rgba(255,255,255,.85); font-size: 17px; line-height: 1.7; margin-bottom: 32px; }
+    .btn-white {
+      background: #fff; color: var(--primary);
+      padding: 15px 32px; border-radius: 12px; font-size: 16px; font-weight: 600;
+      border: none; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+      transition: all .2s;
+    }
+    .btn-white:hover { background: var(--light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--light);
+      border-top: 1px solid var(--border);
+      padding: 72px 24px 32px;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand { font-size: 18px; font-weight: 700; letter-spacing: -0.04em; color: var(--text-dark); margin-bottom: 14px; }
+    .footer-tagline { font-size: 14px; line-height: 1.7; color: var(--text); margin-bottom: 24px; }
+    .social-icons { display: flex; gap: 8px; }
+    .social-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+      color: var(--text); font-size: 14px; transition: all .2s;
+    }
+    .social-icon:hover { background: var(--primary); border-color: var(--primary); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(14,165,233,.25); }
+    .footer-col-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-dark); margin-bottom: 20px; }
+    .footer-col a { display: block; font-size: 14px; color: var(--text); margin-bottom: 10px; transition: color .15s; }
+    .footer-col a:hover { color: var(--primary); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-size: 13px; color: #94a3b8; }
+
+    @media (max-width: 900px) {
+      .banner h1 { font-size: 38px; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; gap: 40px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .section-title { font-size: 28px; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">ZiljTech</a>
+      <div class="nav-links">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#" class="nav-link">Blog</a>
+      </div>
+      <button class="btn-nav">Get Started</button>
+    </div>
+  </nav>
+
+  <!-- BANNER -->
+  <section class="banner">
+    <span class="banner-tag">✦ New — Modern Redesign</span>
+    <h1>Build something great with ZiljTech</h1>
+    <p>A clean, modern platform to power your business. Elegant, fast, and built for the teams that move fast.</p>
+    <div class="banner-btns">
+      <button class="btn-primary">Get Started Free</button>
+      <button class="btn-outline">See how it works →</button>
+    </div>
+    <div class="banner-img">
+      <div class="banner-img-inner">[ Your product screenshot / illustration ]</div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section bg-light" id="features">
+    <div class="container">
+      <span class="section-label">Why ZiljTech</span>
+      <h2 class="section-title">Everything you need to succeed</h2>
+      <p class="section-desc">All the tools your team needs — in one clean, minimal interface that gets out of your way.</p>
+      <div class="grid-3">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h4>Lightning Fast</h4>
+          <p>Built for speed from the ground up. Your users get instant responses every single time.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h4>Secure by Default</h4>
+          <p>Enterprise-grade security baked in — not bolted on. Your data stays safe, always.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h4>Smart Analytics</h4>
+          <p>Understand your users with clear, actionable insights that help you grow faster.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <h4>Easy Integrations</h4>
+          <p>Connect to your favorite tools in minutes. Works with everything your team already uses.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h4>Team Collaboration</h4>
+          <p>Work together seamlessly. Real-time updates keep everyone on the same page.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <h4>Global Scale</h4>
+          <p>Deploy anywhere. Our infrastructure scales with you from 10 users to 10 million.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <span class="service-tag">Our Services</span>
+          <h2 class="service-title">Powerful tools for modern teams</h2>
+          <p class="service-desc">We provide everything you need to deliver a world-class experience to your customers, without the complexity.</p>
+          <ul class="check-list">
+            <li>Custom dashboards tailored to your workflow</li>
+            <li>Advanced reporting and data exports</li>
+            <li>24/7 priority support from real humans</li>
+            <li>99.99% uptime SLA with transparent status</li>
+          </ul>
+          <a href="#" class="btn-link">Explore all services →</a>
+        </div>
+        <div class="service-img">[ Service illustration ]</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="cta-block">
+        <h2>Ready to get started?</h2>
+        <p>Join thousands of teams who trust ZiljTech to power their products. No credit card required.</p>
+        <button class="btn-white">Start for free →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">ZiljTech</div>
+          <p class="footer-tagline">Building better products for modern businesses around the world.</p>
+          <div class="social-icons">
+            <a href="#" class="social-icon">𝕏</a>
+            <a href="#" class="social-icon">in</a>
+            <a href="#" class="social-icon">f</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Product</p>
+          <a href="#">Features</a>
+          <a href="#">Pricing</a>
+          <a href="#">Changelog</a>
+          <a href="#">Roadmap</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Company</p>
+          <a href="#">About</a>
+          <a href="#">Blog</a>
+          <a href="#">Careers</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Legal</p>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 ZiljTech. All rights reserved.</p>
+        <p>Made with care ♥</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    var nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', function() {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+</body>
+</html>

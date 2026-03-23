@@ -1,29 +1,88 @@
+.navigation {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid $border-color;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+
+  &.scrolled {
+    box-shadow: 0 1px 20px rgba(15, 23, 42, 0.06);
+    background-color: rgba(255, 255, 255, 0.95);
+  }
+}
+
 .nav-item {
   margin: 0;
 
   .nav-link {
-    text-transform: capitalize;
-    font-weight: 700;
+    text-transform: none;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    font-size: 15px;
   }
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: $text-color-dark;
+  color: $text-color;
 
   &:hover {
+    color: $primary-color;
+  }
+
+  &.active {
     color: $primary-color;
   }
 }
 
 .navbar-expand-lg .navbar-nav .nav-link {
-  padding: 20px;
+  padding: 16px 14px;
 
   @include desktop {
     padding: 10px;
   }
 }
 
-#select-language{
-  background-color: transparent;
+.navbar-brand {
   font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.04em;
+  color: $text-color-dark;
+}
+
+.navbar {
+  padding: 8px 0;
+}
+
+.dropdown-menu {
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(15, 23, 42, 0.1);
+  padding: 8px;
+  margin-top: 4px;
+
+  .dropdown-item {
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: $text-color;
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &:hover, &:focus {
+      background-color: $light;
+      color: $primary-color;
+    }
+  }
+}
+
+#select-language {
+  background-color: transparent;
+  font-weight: 500;
+  font-size: 14px;
+  color: $text-color;
+  border-radius: 6px;
+  padding: 4px 8px;
 }

@@ -1,11 +1,13 @@
 /*  typography */
 
 body {
-  line-height: 1.2;
+  line-height: 1.6;
   font-family: $primary-font;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
   color: $text-color;
+  letter-spacing: -0.01em;
 }
 
 p,
@@ -13,7 +15,7 @@ p,
   font-weight: 400;
   color: $text-color;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.8;
   font-family: $primary-font;
 }
 
@@ -30,47 +32,54 @@ h6, .h6 {
   color: $text-color-dark;
   font-family: $primary-font;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
 }
 
 h1,
 .h1 {
-  font-size: 48px;
+  font-size: 52px;
+  letter-spacing: -0.04em;
 
   @include tablet {
-    font-size: 40px;
+    font-size: 38px;
   }
 }
 
 h2,
 .h2 {
   font-size: 38px;
+  letter-spacing: -0.035em;
 
   @include tablet {
-    font-size: 30px;
+    font-size: 28px;
   }
 }
 
 h3,
 .h3 {
   font-size: 24px;
+  letter-spacing: -0.02em;
 }
 
 h4,
 .h4 {
-  font-size: 20px;
+  font-size: 18px;
+  letter-spacing: -0.015em;
 }
 
 h5,
 .h5 {
-  font-size: 16px;
+  font-size: 15px;
+  letter-spacing: -0.01em;
 }
 
 h6,
 .h6 {
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .display-3{
   font-size: 3.5rem;
+  letter-spacing: -0.05em;
 }

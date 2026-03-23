@@ -4,80 +4,50 @@ body {
 }
 
 ::selection {
-  background-color:darken($color: $primary-color, $amount: 10);
+  background-color: $primary-color;
   color: $white;
 }
 
-body::-webkit-scrollbar {
-  width: .5rem;
-}
-
-body::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
+body::-webkit-scrollbar { width: 5px; }
+body::-webkit-scrollbar-track { background: #0A192F; }
 body::-webkit-scrollbar-thumb {
   background-color: $primary-color;
-  outline: 2px solid #fff;
+  border-radius: 10px;
 }
-
 
 /* preloader */
-
 .preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #fff;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #0A192F;
   z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
 }
 
-ol,
-ul {
-  margin: 0px;
-}
+ol, ul { margin: 0px; }
+img { vertical-align: middle; border: 0; }
 
-img {
-  vertical-align: middle;
-  border: 0;
-}
-
-a,
-a:hover,
-a:focus {
-  text-decoration: none;
-}
-
-a,
-button,
-select {
+a, a:hover, a:focus { text-decoration: none; }
+a, button, select {
   cursor: pointer;
-  transition: .2s ease;
-
-  &:focus {
-    outline: 0;
-  }
+  transition: all 0.25s ease;
+  &:focus { outline: 0; }
 }
-
-a:hover {
-  color: $primary-color;
-}
-
-.slick-slide {
-  outline: 0;
-}
+a:hover { color: $primary-color; }
+.slick-slide { outline: 0; }
 
 .section {
-  padding-top: 70px;
-  padding-bottom: 70px;
-
-  &-title {
-    margin-bottom: 30px;
+  padding-top: 90px;
+  padding-bottom: 90px;
+  &-title { margin-bottom: 16px; }
+  &-label {
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #00CCCC;
+    margin-bottom: 12px;
+    display: block;
   }
 }
 
@@ -87,89 +57,63 @@ a:hover {
   background-repeat: no-repeat;
 }
 
-.border-default {
-  border-color: $border-color !important;
-}
-
-/* overlay */
+.border-default { border-color: $border-color !important; }
 
 .overlay {
   position: relative;
-
   &::before {
-    position: absolute;
-    content: '';
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-color: $black;
-    opacity: .5;
+    position: absolute; content: '';
+    height: 100%; width: 100%; top: 0; left: 0;
+    background-color: #0A192F; opacity: .65;
   }
 }
 
-.bg-primary {
-  background-color: $primary-color !important;
-}
+.bg-primary { background-color: $primary-color !important; }
+.bg-light    { background-color: $light !important; }
+.text-primary { color: $primary-color !important; }
 
-.bg-light {
-  background-color: $light !important;
-}
+.rounded-lg { border-radius: 14px !important; }
 
-.text-primary {
-  color: $primary-color !important;
+.shadow {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4) !important;
 }
-
-.rounded-lg{
-  border-radius: 10px !important;
-}
-
-.shadow{
-  box-shadow: 0 12px 24px -6px rgba(45,67,121,.10) !important;
-}
-
-// form control
 
 .form-control {
+  background-color: #0d2137;
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  padding: 13px 18px;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+  color: $text-color-dark;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
   &:focus {
+    background-color: #0d2137;
     outline: 0;
     border-color: $primary-color;
-    box-shadow: none;
+    box-shadow: 0 0 0 3px rgba(0, 120, 215, 0.2);
+    color: $text-color-dark;
   }
 
-  &::placeholder {
-    color: $text-color;
-  }
+  &::placeholder { color: #4a6080; }
 }
 
-textarea.form-control {
-  height: 100px !important;
-}
+textarea.form-control { height: 130px !important; }
 
-.list-unstyled{
-  li{
-    margin-bottom: 10px;
-  }
-}
+.list-unstyled li { margin-bottom: 10px; }
 
-.check-mark{
+.check-mark {
   position: relative;
   padding-left: 0px;
-  &::before{
+  &::before {
     position: absolute;
     content: "\f058";
-    color: $primary-color;
-    font-size: 25px;
+    color: #00CCCC;
+    font-size: 20px;
     font-family: $icon-font;
     font-weight: 900;
     left: -30px;
-    top: 3px;
-  }
-  svg{
-    position: absolute;
-    color: $primary-color;
-    font-size: 25px;
-    left: -30px;
-    top: 3px;
+    top: 2px;
   }
 }

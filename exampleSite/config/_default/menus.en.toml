@@ -1,4 +1,4 @@
-# main menu
+# ── Main navigation ──────────────────────────────────────
 [[main]]
 name = "Home"
 url = "/"
@@ -6,37 +6,60 @@ weight = 1
 
 [[main]]
 name = "About Us"
-url = "/"
+url = "about/"
 weight = 2
-
 
 [[main]]
 name = "Contact"
 url = "contact/"
+weight = 3
+
+[[main]]
+name = "Privacy Policy"
+url = "privacy-policy2/"
 weight = 4
 
+[[main]]
+name = "Terms & Conditions"
+url = "terms-conditions/"
+weight = 5
 
-# footer menu left
-[[footer_middle]]
+[[main]]
+name = "FAQ's"
+url = "faq/"
+weight = 6
+
+# ── Footer left ──────────────────────────────────────────
+[[footer_left]]
+name = "Home"
+url = "/"
+
+[[footer_left]]
 name = "About Us"
-url = "#"
+url = "about/"
+
+[[footer_left]]
+name = "Contact"
+url = "contact/"
+
+# ── Footer middle ─────────────────────────────────────────
+[[footer_middle]]
+name = "Privacy Policy"
+url = "privacy-policy2/"
 
 [[footer_middle]]
-name = "Quick Start"
-url = "#"
+name = "Terms & Conditions"
+url = "terms-conditions/"
 
+[[footer_middle]]
+name = "FAQ's"
+url = "faq/"
 
-
-
-
-
-
-# footer menu right
+# ── Footer right ──────────────────────────────────────────
 [[footer_right]]
 name = "Privacy Policy"
-url = "privacy-policy/"
+url = "privacy-policy2/"
 
 [[footer_right]]
 name = "Terms & Conditions"
 url = "terms-conditions/"
-

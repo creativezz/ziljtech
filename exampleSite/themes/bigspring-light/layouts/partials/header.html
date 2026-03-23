@@ -1,5 +1,5 @@
 {{ "<!-- navigation -->" | safeHTML }}
-<header class="navigation">
+<header class="navigation" id="main-nav">
   <div class="container">
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
@@ -65,4 +65,18 @@
     </nav>
   </div>
 </header>
+
+<script>
+  (function() {
+    var nav = document.getElementById('main-nav');
+    var scrolled = false;
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 20) {
+        if (!scrolled) { nav.classList.add('scrolled'); scrolled = true; }
+      } else {
+        if (scrolled) { nav.classList.remove('scrolled'); scrolled = false; }
+      }
+    }, { passive: true });
+  })();
+</script>
 {{ "<!-- /navigation -->" | safeHTML }}

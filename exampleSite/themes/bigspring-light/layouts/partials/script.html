@@ -1,3 +1,78 @@
+<!-- Particles.js init -->
+<script>
+window.addEventListener('load', function () {
+  if (typeof particlesJS !== 'undefined' && document.getElementById('particles-js')) {
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 70, density: { enable: true, value_area: 900 } },
+        color: { value: ['#0078D7', '#00CCCC', '#0056a3'] },
+        shape: { type: 'circle' },
+        opacity: { value: 0.45, random: true, anim: { enable: true, speed: 0.8, opacity_min: 0.1 } },
+        size: { value: 2.5, random: true },
+        line_linked: {
+          enable: true, distance: 155,
+          color: '#0078D7', opacity: 0.22, width: 1
+        },
+        move: {
+          enable: true, speed: 1.4, direction: 'none',
+          random: true, straight: false, out_mode: 'out', bounce: false
+        }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: {
+          onhover: { enable: true, mode: 'repulse' },
+          onclick: { enable: true, mode: 'push' },
+          resize: true
+        },
+        modes: {
+          repulse: { distance: 90, duration: 0.4 },
+          push: { particles_nb: 3 }
+        }
+      },
+      retina_detect: true
+    });
+  }
+});
+</script>
+
+<!-- Smooth scroll with nav offset + page transitions -->
+<script>
+(function () {
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href*="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      var href = this.getAttribute('href');
+      var hash = href.indexOf('#');
+      if (hash === -1) return;
+      var id = href.slice(hash + 1);
+      if (!id) return;
+      var target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      var nav = document.getElementById('main-nav');
+      var offset = nav ? nav.offsetHeight + 16 : 80;
+      window.scrollTo({
+        top: target.getBoundingClientRect().top + window.pageYOffset - offset,
+        behavior: 'smooth'
+      });
+    });
+  });
+
+  // Page transition: fade out on link click
+  document.querySelectorAll('a:not([href^="#"]):not([target="_blank"])').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      var href = this.getAttribute('href');
+      if (!href || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('javascript')) return;
+      e.preventDefault();
+      document.body.style.transition = 'opacity 0.3s ease';
+      document.body.style.opacity = '0';
+      setTimeout(function () { window.location.href = href; }, 280);
+    });
+  });
+})();
+</script>
+
 <!-- font family -->
 <script src="https://cdn.jsdelivr.net/gh/theprojectsomething/webfontloader@feature/google-fonts-v2/webfontloader.js"></script>
 {{$pf:= site.Params.variables.primary_font}}
