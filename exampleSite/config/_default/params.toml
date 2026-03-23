@@ -1,6 +1,29 @@
 #################### default parameters ################################
 logo = "images/logo-nav.png"
 logo_width = "110px"
+
+######################### Color & Font Variables #####################
+[variables]
+# Dark navy background — all site sections use this as base
+body_color        = "#0A192F"
+# Paragraph / body text
+text_color        = "#94a3b8"
+# Headings and high-contrast text
+text_color_dark   = "#F8F9FA"
+# Brand blue used on primary buttons, icons, links
+primary_color     = "#0078D7"
+# Card borders and subtle dividers
+border_color      = "#1e3050"
+# Generic black reference
+black             = "#060f1e"
+# Generic white reference
+white             = "#F8F9FA"
+# Light accent (used on bg-light sections)
+light             = "#0d2137"
+# Google Fonts (Montserrat headings + Roboto body)
+primary_font      = "Montserrat:wght@400;600;700;800"
+primary_font_type = "sans-serif"
+secondary_font    = "Roboto:wght@400;500"
 # OpenGraph / Twitter Card metadata
 description = "This is meta description"
 author = "ZILJ tech"

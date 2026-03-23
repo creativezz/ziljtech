@@ -1,54 +1,155 @@
-<footer class="bg-light section pb-0">
+<footer style="background:#060f1e;border-top:1px solid #1e3050;padding-top:70px;">
   <div class="container">
-    <div class="row">
-      <div class="col-md-3 col-sm-6 mb-5">
-        {{ if site.Menus.footer_left }}
-        <div class="h3 mb-4">{{ site.Params.footer_menu_left }}</div>
-        <ul class="list-unstyled footer-list">
-          {{ range site.Menus.footer_left }}
-          <li><a href="{{ .URL | relLangURL }}" title="{{ .Name }}">{{ .Name }}</a></li>
+    <div class="row" style="gap:0;row-gap:48px;">
+
+      <!-- ── Col 1: Brand + Address ── -->
+      <div class="col-lg-4 col-md-6">
+        <!-- Logo -->
+        <a href="{{ site.BaseURL | absLangURL }}" style="display:inline-block;margin-bottom:20px;">
+          {{ with site.Params.logo }}
+          <img src="{{ . | relURL }}" alt="{{ site.Title }}" style="width:{{ site.Params.logo_width }};height:auto;max-height:110px;">
+          {{ else }}
+          <span style="font-size:22px;font-weight:800;color:#F8F9FA;">{{ site.Title }}</span>
           {{ end }}
-        </ul>
-        {{ end }}
-      </div>
-      <div class="col-md-3 col-sm-6 mb-5">
-        {{ if site.Menus.footer_middle }}
-        <div class="h3 mb-4">{{ site.Params.footer_menu_middle }}</div>
-        <ul class="list-unstyled footer-list">
-          {{ range site.Menus.footer_middle }}
-          <li><a href="{{ .URL | relLangURL }}" title="{{ .Name }}">{{ .Name }}</a></li>
-          {{ end }}
-        </ul>
-        {{ end }}
-      </div>
-      <div class="col-md-3 col-sm-6 mb-5">
-        {{ if site.Menus.footer_right }}
-        <div class="h3 mb-4">{{ site.Params.footer_menu_right }}</div>
-        <ul class="list-unstyled footer-list">
-          {{ range site.Menus.footer_right }}
-          <li><a href="{{ .URL | relLangURL }}" title="{{ .Name }}">{{ .Name }}</a></li>
-          {{ end }}
-        </ul>
-        {{ end }}
-      </div>
-      <div class="col-md-3 col-sm-6 mb-5">
-        <a class="d-block h3 mb-3" href="{{ site.BaseURL | absLangURL}}">
-          {{ with site.Params.logo}}
-          <img width="{{site.Params.logo_width}}" class="img-fluid" src="{{ . | relURL }}" alt="{{ site.Title }}">
-          {{ else }}{{site.Title}}{{end}}
         </a>
-        <p class="mb-4">{{ site.Params.footer_content | markdownify }}</p>
-        {{ with site.Params.social }}
-        <ul class="list-inline social-icons">
-          {{ range . }}
-          <li class="list-inline-item"><a href="{{ .link | safeURL }}" title="{{ .title }}"><i class="{{ .icon }}"></i></a></li>
+        <p style="color:#64748b;font-size:14px;line-height:1.8;margin-bottom:24px;max-width:300px;">
+          Empowering businesses through intelligent technology — from software development and AI to cloud and cybersecurity.
+        </p>
+
+        <!-- Address block -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:flex-start;gap:12px;">
+            <span style="color:#0078D7;font-size:15px;margin-top:2px;flex-shrink:0;">📍</span>
+            <span style="color:#94a3b8;font-size:13.5px;line-height:1.7;">
+              236/16, ZILJ TECH PRIVATE LIMITED<br>
+              Cherai Beach Road, Pallippuram<br>
+              Ernakulam, Kerala — 683514
+            </span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="color:#0078D7;font-size:15px;flex-shrink:0;">📞</span>
+            <a href="tel:+919567668085" style="color:#94a3b8;font-size:13.5px;text-decoration:none;transition:color 0.2s;"
+               onmouseover="this.style.color='#00CCCC'" onmouseout="this.style.color='#94a3b8'">+91 9567 668 085</a>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="color:#0078D7;font-size:15px;flex-shrink:0;">✉️</span>
+            <a href="mailto:ziljtech@gmail.com" style="color:#94a3b8;font-size:13.5px;text-decoration:none;transition:color 0.2s;"
+               onmouseover="this.style.color='#00CCCC'" onmouseout="this.style.color='#94a3b8'">ziljtech@gmail.com</a>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="color:#0078D7;font-size:15px;flex-shrink:0;">🕐</span>
+            <span style="color:#94a3b8;font-size:13.5px;">Mon – Sat &nbsp;|&nbsp; 9:00 AM – 6:00 PM IST</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Col 2: Quick Links ── -->
+      <div class="col-lg-2 col-md-3 col-6">
+        <h6 style="color:#F8F9FA;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #0078D7;display:inline-block;">Quick Links</h6>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+          {{ range site.Menus.footer_left }}
+          <li>
+            <a href="{{ .URL | relLangURL }}" style="color:#64748b;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s;"
+               onmouseover="this.style.color='#00CCCC';this.querySelector('span').style.transform='translateX(4px)'"
+               onmouseout="this.style.color='#64748b';this.querySelector('span').style.transform='translateX(0)'">
+              <span style="color:#0078D7;font-size:10px;transition:transform 0.2s;">▶</span>
+              {{ .Name }}
+            </a>
+          </li>
           {{ end }}
         </ul>
-        {{ end }}
       </div>
+
+      <!-- ── Col 3: Legal ── -->
+      <div class="col-lg-2 col-md-3 col-6">
+        <h6 style="color:#F8F9FA;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #00CCCC;display:inline-block;">Legal</h6>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+          {{ range site.Menus.footer_middle }}
+          <li>
+            <a href="{{ .URL | relLangURL }}" style="color:#64748b;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s;"
+               onmouseover="this.style.color='#00CCCC';this.querySelector('span').style.transform='translateX(4px)'"
+               onmouseout="this.style.color='#64748b';this.querySelector('span').style.transform='translateX(0)'">
+              <span style="color:#00CCCC;font-size:10px;transition:transform 0.2s;">▶</span>
+              {{ .Name }}
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+
+      <!-- ── Col 4: Follow Us + Map link ── -->
+      <div class="col-lg-4 col-md-6">
+        <h6 style="color:#F8F9FA;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #0078D7;display:inline-block;">Follow Us</h6>
+
+        <!-- Social icons -->
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px;">
+          {{ range site.Params.social }}
+          <a href="{{ .link | safeURL }}" title="{{ .title }}" target="_blank"
+             style="width:42px;height:42px;background:#0d2137;border:1px solid #1e3050;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:16px;text-decoration:none;transition:all 0.2s;"
+             onmouseover="this.style.background='linear-gradient(135deg,#0078D7,#00CCCC)';this.style.borderColor='transparent';this.style.color='white'"
+             onmouseout="this.style.background='#0d2137';this.style.borderColor='#1e3050';this.style.color='#94a3b8'">
+            <i class="{{ .icon }}"></i>
+          </a>
+          {{ end }}
+          <!-- Default icons if no social set -->
+          <a href="#" title="LinkedIn"
+             style="width:42px;height:42px;background:#0d2137;border:1px solid #1e3050;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:16px;text-decoration:none;transition:all 0.2s;"
+             onmouseover="this.style.background='linear-gradient(135deg,#0078D7,#00CCCC)';this.style.borderColor='transparent';this.style.color='white'"
+             onmouseout="this.style.background='#0d2137';this.style.borderColor='#1e3050';this.style.color='#94a3b8'">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="#" title="Twitter / X"
+             style="width:42px;height:42px;background:#0d2137;border:1px solid #1e3050;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:16px;text-decoration:none;transition:all 0.2s;"
+             onmouseover="this.style.background='linear-gradient(135deg,#0078D7,#00CCCC)';this.style.borderColor='transparent';this.style.color='white'"
+             onmouseout="this.style.background='#0d2137';this.style.borderColor='#1e3050';this.style.color='#94a3b8'">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" title="Instagram"
+             style="width:42px;height:42px;background:#0d2137;border:1px solid #1e3050;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:16px;text-decoration:none;transition:all 0.2s;"
+             onmouseover="this.style.background='linear-gradient(135deg,#0078D7,#00CCCC)';this.style.borderColor='transparent';this.style.color='white'"
+             onmouseout="this.style.background='#0d2137';this.style.borderColor='#1e3050';this.style.color='#94a3b8'">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" title="WhatsApp"
+             style="width:42px;height:42px;background:#0d2137;border:1px solid #1e3050;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:16px;text-decoration:none;transition:all 0.2s;"
+             onmouseover="this.style.background='linear-gradient(135deg,#0078D7,#00CCCC)';this.style.borderColor='transparent';this.style.color='white'"
+             onmouseout="this.style.background='#0d2137';this.style.borderColor='#1e3050';this.style.color='#94a3b8'">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+
+        <!-- Map link card -->
+        <a href="https://maps.google.com/?q=Cherai+Beach+Road+Pallippuram+Ernakulam+Kerala" target="_blank"
+           style="display:flex;align-items:center;gap:14px;background:#0d2137;border:1px solid #1e3050;border-radius:14px;padding:16px 20px;text-decoration:none;transition:all 0.2s;"
+           onmouseover="this.style.borderColor='#0078D7';this.style.background='#0f2545'"
+           onmouseout="this.style.borderColor='#1e3050';this.style.background='#0d2137'">
+          <div style="width:40px;height:40px;background:linear-gradient(135deg,#0078D7,#00CCCC);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">
+            📍
+          </div>
+          <div>
+            <div style="color:#F8F9FA;font-size:13px;font-weight:600;">Get Directions</div>
+            <div style="color:#64748b;font-size:12px;margin-top:2px;">Cherai Beach Road, Kerala</div>
+          </div>
+          <span style="color:#0078D7;margin-left:auto;font-size:16px;">→</span>
+        </a>
+      </div>
+
+    </div><!-- /row -->
+
+    <!-- ── Divider ── -->
+    <div style="border-top:1px solid #1e3050;margin-top:48px;padding:24px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <p style="color:#475569;font-size:13px;margin:0;">
+        {{ site.Params.Copyright | markdownify }}
+      </p>
+      <p style="color:#475569;font-size:13px;margin:0;">
+        Made with <span style="color:#0078D7;">♥</span> in Kerala, India &nbsp;|&nbsp;
+        <a href="{{ "privacy-policy2/" | relURL }}" style="color:#475569;text-decoration:none;transition:color 0.2s;"
+           onmouseover="this.style.color='#00CCCC'" onmouseout="this.style.color='#475569'">Privacy Policy</a>
+        &nbsp;·&nbsp;
+        <a href="{{ "terms-conditions/" | relURL }}" style="color:#475569;text-decoration:none;transition:color 0.2s;"
+           onmouseover="this.style.color='#00CCCC'" onmouseout="this.style.color='#475569'">Terms</a>
+      </p>
     </div>
-    <div class="border-top border-default text-center py-4 mt-4">
-      <small class="content">{{ site.Params.Copyright | markdownify }}</small>
-    </div>
+
   </div>
 </footer>

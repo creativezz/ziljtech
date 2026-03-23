@@ -1,85 +1,50 @@
 /*  typography */
 
 body {
-  line-height: 1.6;
-  font-family: $primary-font;
+  line-height: 1.7;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
   color: $text-color;
-  letter-spacing: -0.01em;
+  font-weight: 400;
 }
 
-p,
-.paragraph {
+p, .paragraph {
+  font-family: 'Roboto', sans-serif;
   font-weight: 400;
   color: $text-color;
   font-size: 16px;
   line-height: 1.8;
-  font-family: $primary-font;
 }
 
-small {
-  font-size: 88%;
-}
+small { font-size: 88%; }
 
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4,
-h5, .h5,
-h6, .h6 {
+h1, .h1, h2, .h2, h3, .h3,
+h4, .h4, h5, .h5, h6, .h6 {
   color: $text-color-dark;
   font-family: $primary-font;
   font-weight: 700;
   line-height: 1.15;
-  letter-spacing: -0.03em;
-}
-
-h1,
-.h1 {
-  font-size: 52px;
-  letter-spacing: -0.04em;
-
-  @include tablet {
-    font-size: 38px;
-  }
-}
-
-h2,
-.h2 {
-  font-size: 38px;
-  letter-spacing: -0.035em;
-
-  @include tablet {
-    font-size: 28px;
-  }
-}
-
-h3,
-.h3 {
-  font-size: 24px;
   letter-spacing: -0.02em;
 }
 
-h4,
-.h4 {
-  font-size: 18px;
-  letter-spacing: -0.015em;
+h1, .h1 {
+  font-size: 54px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  @include tablet { font-size: 36px; }
 }
 
-h5,
-.h5 {
-  font-size: 15px;
-  letter-spacing: -0.01em;
+h2, .h2 {
+  font-size: 36px;
+  font-weight: 700;
+  @include tablet { font-size: 26px; }
 }
 
-h6,
-.h6 {
-  font-size: 13px;
-}
+h3, .h3 { font-size: 24px; }
+h4, .h4 { font-size: 18px; font-weight: 600; }
+h5, .h5 { font-size: 15px; }
+h6, .h6 { font-size: 13px; }
 
-.display-3{
-  font-size: 3.5rem;
-  letter-spacing: -0.05em;
-}
+.display-3 { font-size: 3.2rem; font-weight: 800; letter-spacing: -0.04em; }
