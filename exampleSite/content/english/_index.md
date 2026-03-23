@@ -1,4 +1,9 @@
 ---
+title: "ZILJ Tech Private Limited — Intelligent IT & AI Solutions"
+description: "ZILJ Tech Private Limited delivers custom software, cloud infrastructure, AI & ML solutions, cybersecurity, and mobile apps from Kerala, India. 50+ projects, 30+ clients, 99.9% uptime."
+keywords: "ZILJ Tech, software development Kerala, custom software India, cloud solutions Kerala, AI ML company India, mobile app development Ernakulam, cybersecurity Kerala, IT company Kerala, DevOps India, web development Kerala"
+image: "images/og-preview.png"
+
 ####################### Banner #########################
 banner:
   title : "Transforming Businesses Through **Intelligent Technology**"

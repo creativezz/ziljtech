@@ -1,67 +1,192 @@
 <meta charset="utf-8">
-<title>{{.Title | default site.Title}}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 
-<!-- base url -->
-{{ if or (eq site.BaseURL "/") (eq site.BaseURL "http://localhost:1313/") (eq site.BaseURL "http://examplesite.org/") (eq site.BaseURL "https://examplesite.org/") (eq site.BaseURL "http://examplesite.com/") (eq site.BaseURL "https://examplesite.com/")}}{{else}}
+{{/* ── Page title ── */}}
+{{ $pageTitle := "" }}
+{{ if .IsHome }}
+  {{ $pageTitle = printf "%s — Intelligent IT & AI Solutions" site.Title }}
+{{ else if .Title }}
+  {{ $pageTitle = printf "%s | %s" .Title site.Title }}
+{{ else }}
+  {{ $pageTitle = site.Title }}
+{{ end }}
+<title>{{ $pageTitle }}</title>
+
+{{/* ── Canonical URL ── */}}
+<link rel="canonical" href="{{ .Permalink }}" />
+
+{{/* ── Base URL ── */}}
+{{ if not (or (eq site.BaseURL "/") (hasSuffix site.BaseURL "localhost:1313/") (hasSuffix site.BaseURL "examplesite.org/") (hasSuffix site.BaseURL "examplesite.com/")) }}
 <base href="{{ site.BaseURL }}">
 {{ end }}
-<link rel="canonical" href="{{ .Permalink }}" itemprop="url" />
 
-<!-- multilingual SEO optimizations -->
+{{/* ── hreflang for multilingual ── */}}
 {{ if .IsTranslated }}
 {{ range .AllTranslations }}
-<link rel="alternate" hreflang="{{.Lang}}" href="{{ .RelPermalink | absLangURL }}">
+<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
 {{ end }}
-<link rel="alternate" hreflang="x-default" href="{{ .RelPermalink | absLangURL }}">
+<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}">
 {{ end }}
-<meta name="description" content="{{ if .Params.description }}{{ .Params.description }}{{ else if .Site.Params.Description }}{{ .Site.Params.Description }}{{ end }}" />
-{{ with site.Params.author }}
-<meta name="author" content="{{ . }}">{{ end }}
+
+{{/* ── Meta description ── */}}
+{{ $desc := "" }}
+{{ if .Params.description }}
+  {{ $desc = .Params.description }}
+{{ else if .IsHome }}
+  {{ $desc = "ZILJ Tech Private Limited delivers cutting-edge custom software, cloud infrastructure, AI & ML solutions, cybersecurity, and mobile apps from Kerala, India. Trusted by 30+ global clients." }}
+{{ else if .Summary }}
+  {{ $desc = .Summary | plainify | truncate 160 }}
+{{ else }}
+  {{ $desc = site.Params.description | default "ZILJ Tech — Intelligent IT solutions, cloud & AI." }}
+{{ end }}
+<meta name="description" content="{{ $desc }}">
+
+{{/* ── Keywords ── */}}
+{{ $keywords := .Params.keywords | default "ZILJ Tech, software development Kerala, custom software India, cloud solutions, AI ML solutions, mobile app development, cybersecurity, DevOps, web development Ernakulam" }}
+<meta name="keywords" content="{{ $keywords }}">
+
+{{/* ── Author & generator ── */}}
+<meta name="author" content="{{ site.Params.author | default `ZILJ Tech Private Limited` }}">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 {{ hugo.Generator }}
 
-<!--Favicon-->
-<link rel="shortcut icon" href="{{ site.Params.favicon | absURL }}" type="image/x-icon">
-<link rel="icon" href="{{ site.Params.favicon | absURL }}" type="image/x-icon">
+{{/* ── Theme colors ── */}}
+<meta name="theme-color" content="#0078D7">
+<meta name="msapplication-TileColor" content="#0A192F">
+<meta name="msapplication-TileImage" content="/android-chrome-192x192.png">
 
-<!-- mobile responsive meta -->
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-<meta name="msapplication-TileColor" content="{{site.Params.variables.primary_color | default `#da532c`}}">
-<meta name="theme-color" content="{{site.Params.variables.body_color | default `#ffffff` }}">
+{{/* ── OG image resolution ── */}}
+{{ $ogImage := "" }}
+{{ $ogImageWidth  := "1200" }}
+{{ $ogImageHeight := "630" }}
+{{ if .Params.image }}
+  {{ $ogImage = .Params.image | absURL }}
+{{ else }}
+  {{ $ogImage = "/images/og-preview.png" | absURL }}
+{{ end }}
 
+{{/* ── Open Graph ── */}}
+<meta property="og:type"        content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+<meta property="og:site_name"   content="{{ site.Title }}">
+<meta property="og:title"       content="{{ $pageTitle }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:url"         content="{{ .Permalink }}">
+<meta property="og:image"       content="{{ $ogImage }}">
+<meta property="og:image:width"  content="{{ $ogImageWidth }}">
+<meta property="og:image:height" content="{{ $ogImageHeight }}">
+<meta property="og:image:alt"   content="{{ site.Title }} — Intelligent IT Solutions">
+<meta property="og:locale"      content="en_IN">
+{{ if not .IsHome }}
+{{ with .Date }}<meta property="article:published_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+{{ with .Lastmod }}<meta property="article:modified_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+{{ end }}
 
-{{ "<!-- Open Graph image and Twitter Card metadata -->" | safeHTML }}
-{{ $image_path := .Params.image | default site.Params.image -}}
-{{ $image_path_local :=  printf "static/%s" $image_path -}}
-{{ $image_ext := trim (path.Ext $image_path | lower) "." -}}
-{{ if fileExists $image_path_local -}}
-  <meta property="og:image" content="{{ $image_path | absURL }}" />
-  {{/* If not SVG, read image aspect ratio and define Twitter Card and Open Graph width and height  */ -}}
-  {{ if ne $image_ext "svg" -}}
-    {{ with (imageConfig $image_path_local) -}}
-    {{ if (and (gt .Width 144) (gt .Height 144)) -}}
-      <meta name="twitter:image" content="{{ $image_path | absURL }}"/>
-      <meta name="twitter:card" content="summary{{ if (and (gt .Width 300) (gt .Height 157) (not (eq .Width .Height))) }}_large_image{{ end }}">
-    {{ end -}}
-    <meta property="og:image:width" content="{{ .Width }}">
-    <meta property="og:image:height" content="{{ .Height }}">
-    {{ end -}}
-  {{ end -}}
-  <meta property="og:image:type" content="image/{{ if eq $image_ext `svg` }}svg+xml{{ else }}{{ replaceRE `^jpg$` `jpeg` $image_ext }}{{ end }}">
-{{ end -}}
-<meta name="twitter:title" content="{{ with .Title }}{{ . }}{{ else }}{{ site.Title }}{{ end }}"/>
-<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}"/>
-{{- /* twitter handle removed — social is array type in params.toml */ -}}
-{{ with site.Params.author_twitter -}}<meta name="twitter:creator" content="@{{ . }}"/>{{ end -}}
+{{/* ── Twitter Card ── */}}
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="{{ $pageTitle }}">
+<meta name="twitter:description" content="{{ $desc }}">
+<meta name="twitter:image"       content="{{ $ogImage }}">
+<meta name="twitter:image:alt"   content="{{ site.Title }} — Intelligent IT Solutions">
 
-{{ template "_internal/opengraph.html" . }}
+{{/* ── JSON-LD Structured Data ── */}}
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ZILJ Tech Private Limited",
+  "alternateName": "ZILJ Tech",
+  "url": "https://www.ziljtech.com",
+  "logo": "https://www.ziljtech.com/images/logo.png",
+  "image": "https://www.ziljtech.com/images/og-preview.png",
+  "description": "ZILJ Tech Private Limited delivers custom software development, cloud infrastructure, AI & ML solutions, cybersecurity, and mobile applications from Kerala, India.",
+  "foundingDate": "2020",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "236/16, Cherai Beach Road, Pallippuram",
+    "addressLocality": "Ernakulam",
+    "addressRegion": "Kerala",
+    "postalCode": "683514",
+    "addressCountry": "IN"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+91-9567668085",
+    "contactType": "customer service",
+    "email": "ziljtech@gmail.com",
+    "availableLanguage": ["English", "Malayalam"]
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/ziljtech",
+    "https://www.facebook.com/ziljtech"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "IT Services",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom Software Development" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cloud & DevOps Solutions" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI & Machine Learning" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cybersecurity Services" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mobile App Development" }},
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web Development" }}
+    ]
+  }
+}
+</script>
+{{ else }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "{{ $pageTitle }}",
+  "description": "{{ $desc }}",
+  "url": "{{ .Permalink }}",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "ZILJ Tech Private Limited",
+    "url": "https://www.ziljtech.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ZILJ Tech Private Limited",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.ziljtech.com/images/logo.png"
+    }
+  }
+}
+</script>
+{{ end }}
 
-<!-- Google Fonts -->
+{{/* ── BreadcrumbList for inner pages ── */}}
+{{ if not .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.ziljtech.com/" },
+    { "@type": "ListItem", "position": 2, "name": "{{ .Title }}", "item": "{{ .Permalink }}" }
+  ]
+}
+</script>
+{{ end }}
+
+{{/* ── Favicon set ── */}}
+<link rel="icon" type="image/x-icon"  href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+{{/* ── Google Fonts ── */}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-<!-- Particles.js -->
+{{/* ── Particles.js ── */}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" defer></script>
 
-<!-- google analytics -->
+{{/* ── Google Analytics ── */}}
 {{ template "_internal/google_analytics.html" . }}

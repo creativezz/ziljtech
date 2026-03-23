@@ -25,9 +25,10 @@ primary_font      = "Montserrat:wght@400;600;700;800"
 primary_font_type = "sans-serif"
 secondary_font    = "Roboto:wght@400;500"
 # OpenGraph / Twitter Card metadata
-description = "This is meta description"
-author = "ZILJ tech"
-image = "images/logo.png" # this image will be used as fallback if a page has no image of its own
+description = "ZILJ Tech Private Limited — Custom software, cloud infrastructure, AI & ML, and cybersecurity solutions from Kerala, India. 50+ projects delivered, 30+ happy clients."
+author = "ZILJ Tech Private Limited"
+image = "images/og-preview.png"
+favicon = "favicon.ico"
 # contact form action
 contact_form_action = "#" # contact form works with https://formspree.io
 

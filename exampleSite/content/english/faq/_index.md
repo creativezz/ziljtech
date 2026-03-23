@@ -1,7 +1,8 @@
 ---
 title: "Frequently Asked Questions"
 subtitle: "Got Questions? We Have Answers."
-description: "Find answers to common questions about ZILJ Tech's services, processes, and support."
+description: "Frequently asked questions about ZILJ Tech's IT services, software development process, pricing, support, and project timelines. Get clear answers before you start."
+keywords: "ZILJ Tech FAQ, IT services questions, software development FAQ, Kerala IT company FAQ"
 draft: false
 ---
 

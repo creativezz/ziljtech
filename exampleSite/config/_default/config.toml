@@ -1,6 +1,6 @@
 ######################## default configuration ####################
-baseURL = "http://localhost:1313/"
-title = "ZILJ Tech"
+baseURL = "https://www.ziljtech.com/"
+title = "ZILJ Tech Private Limited"
 theme = "bigspring-light"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
@@ -9,9 +9,23 @@ paginate = "3"
 # post excerpt
 summaryLength = "15"
 # disqus short name
-disqusShortname = "" # get your shortname form here : https://disqus.com
+disqusShortname = ""
 # google analytics
-googleAnalytics = "" # example : UA-123-45
+googleAnalytics = ""
+
+# SEO
+enableRobotsTXT = true
+
+# Sitemap
+[sitemap]
+  changefreq = "weekly"
+  priority    = 0.5
+  filename    = "sitemap.xml"
+
 # unsafe html
 [markup.goldmark.renderer]
 unsafe = true
+
+# Minify in production
+[minify]
+  disableXML = false
