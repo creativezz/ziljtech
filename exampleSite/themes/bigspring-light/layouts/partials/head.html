@@ -16,7 +16,8 @@
 <link rel="canonical" href="{{ .Permalink }}" />
 
 {{/* ── Base URL ── */}}
-{{ if not (or (eq site.BaseURL "/") (hasSuffix site.BaseURL "localhost:1313/") (hasSuffix site.BaseURL "examplesite.org/") (hasSuffix site.BaseURL "examplesite.com/")) }}
+{{ $devURLs := slice "/" "http://localhost:1313/" "http://examplesite.org/" "https://examplesite.org/" "http://examplesite.com/" "https://examplesite.com/" }}
+{{ if not (in $devURLs site.BaseURL) }}
 <base href="{{ site.BaseURL }}">
 {{ end }}
 
