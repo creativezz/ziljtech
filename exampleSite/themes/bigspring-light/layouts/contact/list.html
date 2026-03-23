@@ -1,5 +1,32 @@
 {{ define "main" }}
 
+<!-- ══════════════════════════════════
+     SUCCESS POPUP MODAL
+══════════════════════════════════ -->
+<div id="successModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);align-items:center;justify-content:center;">
+  <div style="background:#0d2137;border:1px solid rgba(0,204,204,0.4);border-radius:24px;padding:50px 40px;max-width:440px;width:90%;text-align:center;position:relative;box-shadow:0 0 60px rgba(0,120,215,0.3);">
+    <!-- Animated checkmark -->
+    <div style="width:80px;height:80px;background:linear-gradient(135deg,#0078D7,#00CCCC);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;animation:popIn 0.4s ease;">
+      <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
+        <path d="M8 19L15 26L30 11" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="40" stroke-dashoffset="0"/>
+      </svg>
+    </div>
+    <h3 style="color:#F8F9FA;font-size:26px;font-weight:800;margin-bottom:12px;">Message Sent!</h3>
+    <p style="color:#94a3b8;font-size:16px;line-height:1.7;margin-bottom:28px;">Thank you for reaching out. Our team will get back to you within <strong style="color:#00CCCC;">4 business hours</strong>.</p>
+    <button onclick="closeModal()" style="background:linear-gradient(135deg,#0078D7,#00CCCC);border:none;color:white;padding:12px 36px;border-radius:50px;font-size:15px;font-weight:700;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+      Done
+    </button>
+  </div>
+</div>
+
+<style>
+@keyframes popIn {
+  0%   { transform: scale(0.5); opacity: 0; }
+  70%  { transform: scale(1.1); }
+  100% { transform: scale(1);   opacity: 1; }
+}
+</style>
+
 <!-- Contact Hero Header -->
 <section class="contact-hero">
   <div class="contact-hero-bg"></div>
@@ -64,30 +91,30 @@
             <h2>Send Us a Message</h2>
             <p>Fill in the form below and we'll get back to you within one business day.</p>
           </div>
-          <form action="{{ site.Params.contact_form_action | safeURL }}" method="POST" class="contact-form">
+          <form id="contactForm" onsubmit="submitContactForm(event)">
             <div class="row g-3">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="form-label">Your Name</label>
-                  <input type="text" class="form-control" id="name" name="name" placeholder="John Smith" required>
+                  <label class="form-label">Your Name *</label>
+                  <input type="text" class="form-control" id="cf-name" name="name" placeholder="John Smith" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="form-label">Email Address</label>
-                  <input type="email" class="form-control" id="mail" name="mail" placeholder="john@company.com" required>
+                  <label class="form-label">Email Address *</label>
+                  <input type="email" class="form-control" id="cf-email" name="email" placeholder="john@company.com" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="form-label">Phone Number</label>
-                  <input type="text" class="form-control" id="phone" name="phone" placeholder="+91 XXXXX XXXXX">
+                  <input type="text" class="form-control" id="cf-phone" name="phone" placeholder="+91 XXXXX XXXXX">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="form-label">Service Needed</label>
-                  <select class="form-control" name="service">
+                  <select class="form-control" id="cf-service" name="service">
                     <option value="" disabled selected>Select a service</option>
                     <option>Custom Software Development</option>
                     <option>Mobile App Development</option>
@@ -95,6 +122,9 @@
                     <option>Cloud &amp; DevOps</option>
                     <option>UI/UX Design</option>
                     <option>Cybersecurity</option>
+                    <option>AI &amp; Machine Learning</option>
+                    <option>Intelligent Chatbot</option>
+                    <option>Data Analytics</option>
                     <option>Other</option>
                   </select>
                 </div>
@@ -102,17 +132,17 @@
               <div class="col-12">
                 <div class="form-group">
                   <label class="form-label">Subject</label>
-                  <input type="text" class="form-control" id="subject" name="subject" placeholder="Project brief or inquiry topic">
+                  <input type="text" class="form-control" id="cf-subject" name="subject" placeholder="Project brief or inquiry topic">
                 </div>
               </div>
               <div class="col-12">
                 <div class="form-group">
-                  <label class="form-label">Your Message</label>
-                  <textarea name="message" id="message" class="form-control" rows="5" placeholder="Tell us about your project, goals, or any questions you have..."></textarea>
+                  <label class="form-label">Your Message *</label>
+                  <textarea id="cf-message" name="message" class="form-control" rows="5" placeholder="Tell us about your project, goals, or any questions you have..." required></textarea>
                 </div>
               </div>
               <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-contact-submit">
+                <button type="submit" class="btn btn-primary btn-contact-submit" id="submitBtn">
                   <i class="fas fa-paper-plane"></i> Send Message
                 </button>
                 <p class="form-note">We respect your privacy. Your information is never shared.</p>
@@ -155,5 +185,53 @@
     </div>
   </div>
 </section>
+
+<script>
+function submitContactForm(e) {
+  e.preventDefault();
+
+  var name    = document.getElementById('cf-name').value.trim();
+  var email   = document.getElementById('cf-email').value.trim();
+  var phone   = document.getElementById('cf-phone').value.trim();
+  var service = document.getElementById('cf-service').value;
+  var subject = document.getElementById('cf-subject').value.trim();
+  var message = document.getElementById('cf-message').value.trim();
+
+  // Build message object
+  var msg = {
+    id:        Date.now(),
+    timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+    name:      name,
+    email:     email,
+    phone:     phone || '—',
+    service:   service || '—',
+    subject:   subject || '—',
+    message:   message
+  };
+
+  // Save to localStorage
+  var stored = JSON.parse(localStorage.getItem('ziljtech_messages') || '[]');
+  stored.unshift(msg); // newest first
+  localStorage.setItem('ziljtech_messages', JSON.stringify(stored));
+
+  // Reset form
+  document.getElementById('contactForm').reset();
+
+  // Show success popup
+  var modal = document.getElementById('successModal');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('successModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+// Close on backdrop click
+document.getElementById('successModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
 
 {{ end }}

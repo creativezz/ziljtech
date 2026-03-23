@@ -39,6 +39,18 @@ feature:
       icon : "fas fa-server"
       content : "Enterprise-grade Linux hosting with cPanel, SSD NVMe storage, free SSL, DDoS protection, and 24/7 expert monitoring — optimized for speed and security."
 
+    - name : "AI & Machine Learning"
+      icon : "fas fa-brain"
+      content : "Custom ML models, predictive analytics, and intelligent automation built for your industry. We transform raw data into powerful AI systems that learn, adapt, and drive real business outcomes."
+
+    - name : "Intelligent Chatbots"
+      icon : "fas fa-robot"
+      content : "AI-powered chatbots and virtual assistants that understand natural language, resolve customer queries 24/7, and integrate seamlessly with your CRM, website, and mobile apps."
+
+    - name : "Computer Vision"
+      icon : "fas fa-eye"
+      content : "Image recognition, object detection, face analysis, and document OCR systems built with cutting-edge deep learning. From quality control to security, we turn cameras into intelligent systems."
+
 
 ######################### Service #####################
 service:
@@ -47,7 +59,7 @@ service:
 
     - title : "End-to-End Digital Transformation"
       images :
-        - "images/service-1.png"
+        - "images/service-1.svg"
       content : "We partner with businesses at every stage of their digital journey. From legacy system modernization to full-stack cloud migration, our certified engineers design future-proof technology strategies. We've helped clients reduce operational costs by 40%, accelerate time-to-market by 3x, and unlock new revenue streams through data-driven automation. Whether you're a startup scaling fast or an enterprise re-platforming, ZILJ Tech delivers measurable results."
       button:
         enable : true
@@ -56,7 +68,7 @@ service:
 
     - title : "Cybersecurity & Compliance Solutions"
       images :
-        - "images/service-2.png"
+        - "images/service-2.svg"
       content : "In today's threat landscape, security cannot be an afterthought. ZILJ Tech provides comprehensive cybersecurity services including vulnerability assessments, penetration testing, SIEM implementation, and ISO 27001 compliance consulting. Our security-first development practices ensure every product we build is fortified against modern threats, keeping your data — and your customers' trust — safe at all times."
       button:
         enable : true
@@ -65,11 +77,20 @@ service:
 
     - title : "Data Analytics & AI Integration"
       images :
-        - "images/service-3.png"
+        - "images/service-3.svg"
       content : "Turn raw data into competitive advantage. Our data engineering team builds real-time analytics dashboards, predictive models, and AI-powered automation that give you actionable insights at the speed of business. From ETL pipelines to machine learning model deployment, we bridge the gap between your data and the decisions that drive growth. Our clients report an average 60% improvement in decision-making speed after deploying our analytics solutions."
       button:
         enable : true
         label : "Explore AI Solutions"
+        link : "contact/"
+
+    - title : "AI-Powered Business Automation"
+      images :
+        - "images/service-3.svg"
+      content : "We design intelligent automation systems that eliminate repetitive tasks, accelerate workflows, and reduce human error. Our AI solutions include NLP-driven document processing, smart scheduling systems, AI chatbots for customer support, and predictive inventory management. Whether you need a single AI module or a full autonomous workflow engine, ZILJ Tech engineers build production-grade AI systems that integrate with your existing tools and scale with your business."
+      button:
+        enable : true
+        label : "Automate Your Business"
         link : "contact/"
 
 

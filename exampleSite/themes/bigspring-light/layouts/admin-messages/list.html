@@ -1,0 +1,309 @@
+{{ define "main" }}
+
+<style>
+  body { background: #0A192F !important; }
+
+  #lockScreen {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .lock-card {
+    background: #0d2137;
+    border: 1px solid rgba(0,120,215,0.3);
+    border-radius: 24px;
+    padding: 50px 40px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 60px rgba(0,120,215,0.15);
+  }
+  .lock-icon {
+    width: 70px; height: 70px;
+    background: linear-gradient(135deg,#0078D7,#00CCCC);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 28px;
+  }
+  .lock-card h2 { color: #F8F9FA; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .lock-card p  { color: #94a3b8; font-size: 14px; margin-bottom: 28px; }
+  .lock-input {
+    width: 100%; padding: 14px 18px;
+    background: #0A192F; border: 1px solid #1e3050;
+    border-radius: 12px; color: #F8F9FA;
+    font-size: 18px; letter-spacing: 6px; text-align: center;
+    outline: none; margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+  .lock-input:focus { border-color: #0078D7; }
+  .lock-btn {
+    width: 100%; padding: 13px;
+    background: linear-gradient(135deg,#0078D7,#00CCCC);
+    border: none; border-radius: 12px;
+    color: white; font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: opacity 0.2s;
+  }
+  .lock-btn:hover { opacity: 0.85; }
+  .lock-error { color: #f87171; font-size: 13px; margin-top: 8px; display: none; }
+
+  /* Dashboard */
+  #dashboard { display: none; padding: 40px 0 80px; }
+  .dash-header {
+    background: linear-gradient(135deg,#0A192F,#0d2137);
+    padding: 32px 0; margin-bottom: 32px;
+    border-bottom: 1px solid #1e3050;
+  }
+  .dash-header h1 { color: #F8F9FA; font-size: 28px; font-weight: 800; margin: 0; }
+  .dash-header p  { color: #94a3b8; margin: 6px 0 0; font-size: 14px; }
+  .dash-stats {
+    display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 28px;
+  }
+  .stat-box {
+    background: #0d2137; border: 1px solid #1e3050; border-radius: 14px;
+    padding: 20px 28px; min-width: 140px;
+  }
+  .stat-box .num { font-size: 32px; font-weight: 800; background: linear-gradient(135deg,#0078D7,#00CCCC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat-box .lbl { color: #94a3b8; font-size: 13px; margin-top: 4px; }
+
+  .dash-toolbar {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
+  }
+  .dash-search {
+    padding: 10px 16px; background: #0d2137; border: 1px solid #1e3050;
+    border-radius: 10px; color: #F8F9FA; font-size: 14px; outline: none;
+    width: 260px; transition: border-color 0.2s;
+  }
+  .dash-search:focus { border-color: #0078D7; }
+  .btn-clear-all {
+    padding: 10px 20px; background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 10px; color: #f87171; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-clear-all:hover { background: rgba(239,68,68,0.25); }
+
+  .msg-grid { display: flex; flex-direction: column; gap: 16px; }
+  .msg-card {
+    background: #0d2137; border: 1px solid #1e3050; border-radius: 16px;
+    padding: 24px 28px; transition: border-color 0.2s;
+    position: relative;
+  }
+  .msg-card:hover { border-color: #0078D7; }
+  .msg-card-top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 12px;
+  }
+  .msg-sender { display: flex; align-items: center; gap: 14px; }
+  .msg-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg,#0078D7,#00CCCC);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 18px; font-weight: 700; flex-shrink: 0;
+  }
+  .msg-name  { color: #F8F9FA; font-weight: 700; font-size: 16px; }
+  .msg-email { color: #00CCCC; font-size: 13px; margin-top: 2px; }
+  .msg-time  { color: #64748b; font-size: 12px; white-space: nowrap; }
+  .msg-meta  { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .msg-tag {
+    padding: 3px 12px; border-radius: 50px; font-size: 12px; font-weight: 600;
+    background: rgba(0,120,215,0.12); border: 1px solid rgba(0,120,215,0.25);
+    color: #0078D7;
+  }
+  .msg-tag.phone { background: rgba(0,204,204,0.1); border-color: rgba(0,204,204,0.25); color: #00CCCC; }
+  .msg-subject { color: #F8F9FA; font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .msg-body   { color: #94a3b8; font-size: 14px; line-height: 1.7; }
+  .msg-delete {
+    position: absolute; top: 16px; right: 16px;
+    background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 8px; color: #f87171; font-size: 12px; padding: 4px 10px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .msg-delete:hover { background: rgba(239,68,68,0.25); }
+  .no-msgs {
+    text-align: center; padding: 80px 20px;
+    color: #94a3b8; font-size: 16px;
+  }
+  .no-msgs .icon { font-size: 48px; margin-bottom: 16px; opacity: 0.4; }
+  .logout-btn {
+    padding: 8px 18px; background: transparent;
+    border: 1px solid #1e3050; border-radius: 10px;
+    color: #94a3b8; font-size: 13px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .logout-btn:hover { border-color: #f87171; color: #f87171; }
+</style>
+
+<!-- ══ LOCK SCREEN ══ -->
+<div id="lockScreen">
+  <div class="lock-card">
+    <div class="lock-icon">🔒</div>
+    <h2>Admin Access</h2>
+    <p>Enter your password to view contact messages</p>
+    <input type="password" id="passInput" class="lock-input" placeholder="••••••••"
+           onkeydown="if(event.key==='Enter') checkPass()">
+    <button class="lock-btn" onclick="checkPass()">Unlock</button>
+    <p class="lock-error" id="passError">Incorrect password. Try again.</p>
+  </div>
+</div>
+
+<!-- ══ DASHBOARD ══ -->
+<div id="dashboard">
+  <div class="dash-header">
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+        <div>
+          <h1>📬 Contact Messages</h1>
+          <p>All messages submitted via the contact form</p>
+        </div>
+        <button class="logout-btn" onclick="logout()">🔒 Lock</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Stats -->
+    <div class="dash-stats">
+      <div class="stat-box">
+        <div class="num" id="statTotal">0</div>
+        <div class="lbl">Total Messages</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="statToday">0</div>
+        <div class="lbl">Today</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" id="statUnread">0</div>
+        <div class="lbl">This Week</div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="dash-toolbar">
+      <input type="text" class="dash-search" id="searchInput"
+             placeholder="🔍  Search by name, email or subject…"
+             oninput="renderMessages()">
+      <button class="btn-clear-all" onclick="clearAll()">🗑 Clear All Messages</button>
+    </div>
+
+    <!-- Messages -->
+    <div class="msg-grid" id="msgGrid"></div>
+  </div>
+</div>
+
+<script>
+var PASS = '2488703';
+var KEY  = 'ziljtech_messages';
+
+function checkPass() {
+  var val = document.getElementById('passInput').value;
+  if (val === PASS) {
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display  = 'block';
+    loadDashboard();
+  } else {
+    document.getElementById('passError').style.display = 'block';
+    document.getElementById('passInput').value = '';
+    document.getElementById('passInput').focus();
+    setTimeout(function(){ document.getElementById('passError').style.display='none'; }, 3000);
+  }
+}
+
+function logout() {
+  document.getElementById('dashboard').style.display  = 'none';
+  document.getElementById('lockScreen').style.display = 'flex';
+  document.getElementById('passInput').value = '';
+}
+
+function loadDashboard() {
+  var msgs = getMessages();
+  var today = new Date().toLocaleDateString('en-IN');
+  var weekAgo = new Date(Date.now() - 7*24*60*60*1000);
+
+  document.getElementById('statTotal').textContent = msgs.length;
+  document.getElementById('statToday').textContent = msgs.filter(function(m){
+    return m.timestamp && m.timestamp.startsWith(today.split('/').reverse().join('/')) || m.timestamp.includes(today);
+  }).length;
+  document.getElementById('statUnread').textContent = msgs.filter(function(m){
+    return new Date(m.id) > weekAgo;
+  }).length;
+
+  renderMessages();
+}
+
+function getMessages() {
+  return JSON.parse(localStorage.getItem(KEY) || '[]');
+}
+
+function renderMessages() {
+  var q    = (document.getElementById('searchInput').value || '').toLowerCase();
+  var msgs = getMessages();
+  var grid = document.getElementById('msgGrid');
+
+  var filtered = msgs.filter(function(m) {
+    if (!q) return true;
+    return (m.name    || '').toLowerCase().includes(q) ||
+           (m.email   || '').toLowerCase().includes(q) ||
+           (m.subject || '').toLowerCase().includes(q) ||
+           (m.message || '').toLowerCase().includes(q) ||
+           (m.service || '').toLowerCase().includes(q);
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="no-msgs"><div class="icon">📭</div><div>' +
+      (q ? 'No messages match your search.' : 'No messages yet. They will appear here once submitted.') + '</div></div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(function(m) {
+    var initials = (m.name || '?').split(' ').map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase();
+    return '<div class="msg-card" id="msg-' + m.id + '">' +
+      '<button class="msg-delete" onclick="deleteMsg(' + m.id + ')">✕ Delete</button>' +
+      '<div class="msg-card-top">' +
+        '<div class="msg-sender">' +
+          '<div class="msg-avatar">' + initials + '</div>' +
+          '<div>' +
+            '<div class="msg-name">' + escHtml(m.name) + '</div>' +
+            '<div class="msg-email">' + escHtml(m.email) + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="msg-time">📅 ' + escHtml(m.timestamp) + '</div>' +
+      '</div>' +
+      '<div class="msg-meta">' +
+        (m.phone && m.phone !== '—' ? '<span class="msg-tag phone">📞 ' + escHtml(m.phone) + '</span>' : '') +
+        (m.service && m.service !== '—' ? '<span class="msg-tag">🛠 ' + escHtml(m.service) + '</span>' : '') +
+      '</div>' +
+      (m.subject && m.subject !== '—' ? '<div class="msg-subject">📌 ' + escHtml(m.subject) + '</div>' : '') +
+      '<div class="msg-body">' + escHtml(m.message).replace(/\n/g,'<br>') + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function deleteMsg(id) {
+  if (!confirm('Delete this message?')) return;
+  var msgs = getMessages().filter(function(m){ return m.id !== id; });
+  localStorage.setItem(KEY, JSON.stringify(msgs));
+  loadDashboard();
+}
+
+function clearAll() {
+  if (!confirm('Delete ALL messages? This cannot be undone.')) return;
+  localStorage.removeItem(KEY);
+  loadDashboard();
+}
+
+function escHtml(str) {
+  return String(str || '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Allow pressing Enter on password field
+document.getElementById('passInput').addEventListener('keydown', function(e){
+  if (e.key === 'Enter') checkPass();
+});
+</script>
+
+{{ end }}
