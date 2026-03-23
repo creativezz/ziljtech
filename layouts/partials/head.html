@@ -50,7 +50,7 @@
 {{ end -}}
 <meta name="twitter:title" content="{{ with .Title }}{{ . }}{{ else }}{{ site.Title }}{{ end }}"/>
 <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}"/>
-{{ with site.Params.social }}{{ with .twitter -}}<meta name="twitter:site" content="@{{ . }}"/>{{ end -}}{{ end }}
+{{- /* twitter handle removed — social is array type in params.toml */ -}}
 {{ with site.Params.author_twitter -}}<meta name="twitter:creator" content="@{{ . }}"/>{{ end -}}
 
 {{ template "_internal/opengraph.html" . }}
