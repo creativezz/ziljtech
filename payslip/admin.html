@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Admin Panel — ZILJ Tech Private Limited</title>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --p1:#0D47A1;--p2:#1565C0;--a1:#00BCD4;--a2:#007EB5;
+    --n1:#0A192F;--n2:#0d2137;--n3:#1e3050;--n4:#94a3b8;
+    --red:#E53935;--green:#27AE60;
+    --bg:#f0f4f9;--card:#ffffff;
+    --dark-bg:#0A192F;--dark-card:#0d2137;--dark-border:#1e3050;
+    --dark-text:#F8F9FA;--dark-sub:#94a3b8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',sans-serif;background:var(--dark-bg);min-height:100vh;color:var(--dark-text);}
+
+  /* ── LOCK SCREEN ── */
+  #lockScreen{
+    position:fixed;inset:0;background:var(--dark-bg);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    z-index:999;
+  }
+  .lock-card{
+    background:var(--dark-card);border:1px solid var(--dark-border);
+    border-radius:24px;padding:50px 40px;width:380px;text-align:center;
+    box-shadow:0 0 60px rgba(0,120,215,0.15);
+  }
+  .lock-logo{
+    width:70px;height:70px;border-radius:50%;
+    background:linear-gradient(135deg,var(--p1),var(--a1));
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.8rem;margin:0 auto 20px;
+  }
+  .lock-title{color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:4px;}
+  .lock-sub{color:var(--dark-sub);font-size:.82rem;margin-bottom:28px;}
+  .lock-label{display:block;text-align:left;color:var(--dark-sub);font-size:.72rem;
+    font-weight:600;letter-spacing:.5px;margin-bottom:6px;}
+  .lock-input{
+    width:100%;padding:14px 18px;border-radius:12px;
+    border:1.5px solid var(--dark-border);background:var(--dark-bg);color:#fff;
+    font-size:1.1rem;letter-spacing:4px;text-align:center;outline:none;
+    transition:border .2s;
+  }
+  .lock-input:focus{border-color:var(--a1);}
+  .lock-btn{
+    width:100%;margin-top:18px;padding:14px;border:none;border-radius:12px;
+    background:linear-gradient(135deg,var(--p1),var(--a1));
+    color:#fff;font-size:1rem;font-weight:700;cursor:pointer;
+    letter-spacing:.5px;transition:opacity .2s;
+  }
+  .lock-btn:hover{opacity:.88;}
+  .lock-err{margin-top:12px;color:var(--red);font-size:.82rem;min-height:18px;font-weight:600;}
+
+  /* ── LAYOUT: SIDEBAR + CONTENT ── */
+  #dashboard{display:none;height:100vh;overflow:hidden;}
+  .layout{display:flex;height:100%;}
+
+  /* Sidebar */
+  .sidebar{
+    width:260px;min-width:260px;background:var(--dark-card);
+    border-right:1px solid var(--dark-border);
+    display:flex;flex-direction:column;overflow:hidden;
+  }
+  .sidebar-brand{
+    padding:22px 20px 18px;border-bottom:1px solid var(--dark-border);
+    display:flex;align-items:center;gap:12px;
+  }
+  .sidebar-brand-icon{
+    width:40px;height:40px;border-radius:10px;
+    background:linear-gradient(135deg,var(--p1),var(--a1));
+    display:flex;align-items:center;justify-content:center;
+    font-size:1rem;font-weight:900;color:#fff;flex-shrink:0;
+  }
+  .sidebar-brand h2{color:#fff;font-size:1rem;font-weight:800;line-height:1.2;}
+  .sidebar-brand .sub{color:var(--dark-sub);font-size:.68rem;margin-top:2px;}
+
+  .sidebar-nav{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:4px;}
+  .nav-label{
+    font-size:.65rem;font-weight:700;color:var(--dark-sub);
+    letter-spacing:1px;padding:8px 12px 4px;text-transform:uppercase;
+  }
+  .nav-item{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 16px;border-radius:12px;cursor:pointer;
+    transition:all .15s;font-size:.88rem;font-weight:600;
+    color:var(--dark-sub);border:1px solid transparent;
+  }
+  .nav-item:hover{background:rgba(0,188,212,.08);color:var(--dark-text);}
+  .nav-item.active{
+    background:rgba(0,120,215,.15);color:var(--a1);
+    border-color:rgba(0,120,215,.25);
+  }
+  .nav-item .icon{font-size:1.15rem;width:24px;text-align:center;}
+  .nav-item .badge{
+    margin-left:auto;background:var(--p1);color:#fff;
+    font-size:.65rem;font-weight:700;padding:2px 8px;
+    border-radius:50px;min-width:22px;text-align:center;
+  }
+
+  .sidebar-footer{
+    padding:16px;border-top:1px solid var(--dark-border);
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .btn-side{
+    width:100%;padding:10px;border-radius:10px;border:1px solid var(--dark-border);
+    background:transparent;color:var(--dark-sub);font-size:.8rem;font-weight:600;
+    cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px;
+  }
+  .btn-side:hover{border-color:var(--a1);color:var(--a1);}
+  .btn-side.danger{border-color:rgba(239,68,68,.3);color:#f87171;}
+  .btn-side.danger:hover{background:rgba(239,68,68,.1);}
+
+  /* Content area */
+  .content{flex:1;overflow-y:auto;padding:0;}
+  .page{display:none;}
+  .page.active{display:block;}
+
+  .page-header{
+    background:var(--dark-card);border-bottom:1px solid var(--dark-border);
+    padding:28px 36px 24px;position:sticky;top:0;z-index:10;
+  }
+  .page-header h1{font-size:1.5rem;font-weight:800;margin-bottom:4px;}
+  .page-header p{color:var(--dark-sub);font-size:.85rem;}
+
+  .page-body{padding:28px 36px 60px;}
+
+  /* Stats row */
+  .stats{display:flex;gap:16px;margin-bottom:28px;flex-wrap:wrap;}
+  .stat-card{
+    flex:1;min-width:150px;background:var(--dark-card);
+    border:1px solid var(--dark-border);border-radius:14px;
+    padding:20px 24px;
+  }
+  .stat-card .stat-num{
+    font-size:1.8rem;font-weight:800;
+    background:linear-gradient(135deg,var(--p1),var(--a1));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .stat-card .stat-label{color:var(--dark-sub);font-size:.72rem;font-weight:600;
+    letter-spacing:.5px;text-transform:uppercase;margin-top:4px;}
+
+  /* Toolbar */
+  .toolbar{
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:12px;margin-bottom:20px;
+  }
+  .search-input{
+    padding:11px 18px;background:var(--dark-card);border:1px solid var(--dark-border);
+    border-radius:10px;color:var(--dark-text);font-size:.88rem;outline:none;
+    width:300px;transition:border .2s;
+  }
+  .search-input:focus{border-color:var(--a1);}
+  .btn-action{
+    padding:9px 18px;border-radius:10px;border:1px solid var(--dark-border);
+    background:transparent;color:var(--dark-sub);font-size:.8rem;font-weight:600;
+    cursor:pointer;transition:all .15s;
+  }
+  .btn-action:hover{border-color:var(--a1);color:var(--a1);}
+  .btn-action.danger{border-color:rgba(239,68,68,.3);color:#f87171;}
+  .btn-action.danger:hover{background:rgba(239,68,68,.1);}
+  .btn-action.primary{background:linear-gradient(135deg,var(--p1),var(--a1));color:#fff;border:none;}
+  .btn-action.primary:hover{opacity:.88;}
+
+  /* ═══ MESSAGES ═══ */
+  .msg-grid{display:flex;flex-direction:column;gap:16px;}
+  .msg-card{
+    background:var(--dark-card);border:1px solid var(--dark-border);
+    border-radius:16px;padding:24px 28px;transition:border-color .2s;
+    position:relative;
+  }
+  .msg-card:hover{border-color:var(--p1);}
+  .msg-card-top{
+    display:flex;align-items:flex-start;justify-content:space-between;
+    flex-wrap:wrap;gap:12px;margin-bottom:12px;
+  }
+  .msg-sender{display:flex;align-items:center;gap:14px;}
+  .msg-avatar{
+    width:44px;height:44px;border-radius:50%;
+    background:linear-gradient(135deg,var(--p1),var(--a1));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:16px;font-weight:700;flex-shrink:0;
+  }
+  .msg-name{color:var(--dark-text);font-weight:700;font-size:.95rem;}
+  .msg-email{color:var(--a1);font-size:.78rem;margin-top:2px;}
+  .msg-time{color:#64748b;font-size:.72rem;white-space:nowrap;}
+  .msg-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+  .msg-tag{
+    padding:3px 12px;border-radius:50px;font-size:.72rem;font-weight:600;
+    background:rgba(0,120,215,.12);border:1px solid rgba(0,120,215,.25);color:var(--p2);
+  }
+  .msg-tag.phone{background:rgba(0,204,204,.1);border-color:rgba(0,204,204,.25);color:var(--a1);}
+  .msg-subject{color:var(--dark-text);font-size:.9rem;font-weight:600;margin-bottom:8px;}
+  .msg-body{color:var(--dark-sub);font-size:.85rem;line-height:1.7;}
+  .msg-delete{
+    position:absolute;top:16px;right:16px;
+    background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);
+    border-radius:8px;color:#f87171;font-size:.72rem;padding:4px 10px;
+    cursor:pointer;transition:all .2s;
+  }
+  .msg-delete:hover{background:rgba(239,68,68,.25);}
+
+  /* ═══ PAYSLIPS TABLE ═══ */
+  .table-wrap{
+    background:var(--dark-card);border:1px solid var(--dark-border);
+    border-radius:14px;overflow:hidden;
+  }
+  .table-head{
+    display:flex;padding:14px 20px;background:var(--p1);
+    color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.5px;
+  }
+  .table-head span,.trow span{display:block;}
+  .col-num{width:40px;}.col-pid{width:175px;}.col-emp{flex:1;}
+  .col-period{width:120px;}.col-net{width:110px;text-align:right;}
+  .col-time{width:155px;text-align:right;}
+  .trow{
+    display:flex;align-items:center;padding:12px 20px;
+    border-bottom:1px solid var(--dark-border);font-size:.82rem;
+    transition:background .15s;
+  }
+  .trow:last-child{border-bottom:none;}
+  .trow:hover{background:rgba(0,188,212,.04);}
+  .trow .col-num{color:var(--dark-sub);font-size:.75rem;}
+  .trow .col-pid{font-weight:700;color:var(--a1);}
+  .trow .col-emp{color:var(--dark-text);}
+  .trow .col-period{color:var(--dark-sub);}
+  .trow .col-net{text-align:right;font-weight:700;color:var(--green);}
+  .trow .col-time{text-align:right;color:var(--dark-sub);font-size:.75rem;}
+
+  /* ═══ LETTERHEAD PAGE ═══ */
+  .lh-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .lh-card{
+    background:var(--dark-card);border:1px solid var(--dark-border);
+    border-radius:16px;padding:28px;transition:border-color .2s;
+  }
+  .lh-card:hover{border-color:var(--p1);}
+  .lh-card h3{font-size:1rem;font-weight:700;margin-bottom:6px;}
+  .lh-card p{color:var(--dark-sub);font-size:.82rem;line-height:1.6;margin-bottom:16px;}
+  .lh-preview{
+    width:100%;aspect-ratio:210/297;background:var(--dark-bg);
+    border:1px solid var(--dark-border);border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;position:relative;
+  }
+  .lh-preview iframe{width:100%;height:100%;border:none;}
+  .lh-info-card{
+    background:var(--dark-card);border:1px solid var(--dark-border);
+    border-radius:16px;padding:28px;
+  }
+  .lh-info-card h3{font-size:1rem;font-weight:700;margin-bottom:16px;}
+  .lh-detail{
+    display:flex;align-items:flex-start;gap:12px;
+    padding:12px 0;border-bottom:1px solid var(--dark-border);
+  }
+  .lh-detail:last-child{border-bottom:none;}
+  .lh-detail .lh-icon{
+    width:36px;height:36px;border-radius:10px;
+    background:rgba(0,120,215,.12);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1rem;flex-shrink:0;
+  }
+  .lh-detail .lh-label{color:var(--dark-sub);font-size:.72rem;font-weight:600;
+    text-transform:uppercase;letter-spacing:.5px;}
+  .lh-detail .lh-val{color:var(--dark-text);font-size:.88rem;font-weight:600;margin-top:2px;}
+
+  /* ═══ AUTHORIZATION LETTER ═══ */
+  .auth-layout{display:grid;grid-template-columns:380px 1fr;gap:24px;}
+  @media(max-width:960px){.auth-layout{grid-template-columns:1fr;}}
+  .auth-form-card{
+    background:var(--dark-card);border:1px solid var(--dark-border);
+    border-radius:16px;padding:28px;height:fit-content;
+  }
+  .auth-form-card h3{font-size:1rem;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+  .auth-field{margin-bottom:16px;}
+  .auth-field label{display:block;color:var(--dark-sub);font-size:.72rem;font-weight:600;
+    letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;}
+  .auth-field input,.auth-field textarea,.auth-field select{
+    width:100%;padding:11px 14px;background:var(--dark-bg);border:1px solid var(--dark-border);
+    border-radius:10px;color:var(--dark-text);font-size:.85rem;outline:none;
+    font-family:'Segoe UI',sans-serif;transition:border .2s;
+  }
+  .auth-field input:focus,.auth-field textarea:focus,.auth-field select:focus{border-color:var(--a1);}
+  .auth-field textarea{resize:vertical;min-height:80px;line-height:1.6;}
+  .auth-field select{cursor:pointer;}
+  .auth-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .auth-btn-row{display:flex;gap:10px;margin-top:20px;}
+  .auth-btn-row button{flex:1;}
+
+  .auth-preview-card{
+    background:var(--dark-card);border:1px solid var(--dark-border);
+    border-radius:16px;padding:24px;overflow:hidden;
+  }
+  .auth-preview-card h3{font-size:1rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
+  .auth-letter-wrap{
+    background:#fff;border-radius:10px;padding:48px 52px;color:#1a1a1a;
+    font-family:'Segoe UI',Georgia,serif;min-height:600px;position:relative;
+    box-shadow:0 2px 20px rgba(0,0,0,.15);
+  }
+  .auth-letter-wrap .al-header{display:flex;align-items:center;gap:16px;padding-bottom:16px;
+    border-bottom:3px solid #0D47A1;margin-bottom:24px;}
+  .al-logo{width:60px;height:60px;border-radius:8px;background:linear-gradient(135deg,#0D47A1,#00BCD4);
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:1rem;flex-shrink:0;}
+  .al-co-name{font-size:1.15rem;font-weight:800;color:#0D47A1;margin:0;}
+  .al-co-sub{font-size:.7rem;color:#555;margin-top:2px;}
+  .al-co-contact{font-size:.65rem;color:#777;margin-top:2px;}
+  .auth-letter-wrap .al-accent{height:2px;background:linear-gradient(90deg,#00BCD4,#0D47A1);margin-bottom:20px;}
+  .auth-letter-wrap .al-to{font-size:.85rem;color:#333;margin-bottom:4px;line-height:1.6;}
+  .auth-letter-wrap .al-date{font-size:.82rem;color:#555;margin-bottom:20px;}
+  .auth-letter-wrap .al-subject{font-size:.95rem;font-weight:700;color:#0D47A1;
+    text-align:center;margin-bottom:20px;padding:8px;background:#f0f6ff;border-radius:6px;}
+  .auth-letter-wrap .al-body{font-size:.85rem;color:#333;line-height:1.8;margin-bottom:28px;}
+  .auth-letter-wrap .al-body p{margin-bottom:12px;}
+  .auth-letter-wrap .al-sign{margin-top:36px;}
+  .auth-letter-wrap .al-sign .sig-label{font-size:.7rem;color:#999;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+  .auth-letter-wrap .al-sign .sig-line{width:180px;border-bottom:1px solid #333;margin:28px 0 6px;}
+  .auth-letter-wrap .al-sign .sig-name{font-size:.88rem;font-weight:700;color:#1a1a1a;}
+  .auth-letter-wrap .al-sign .sig-desg{font-size:.78rem;color:#555;}
+  .auth-letter-wrap .al-sign .sig-seal{font-size:.72rem;color:#999;margin-top:10px;font-style:italic;}
+  .auth-letter-wrap .al-footer{position:absolute;bottom:20px;left:0;right:0;
+    text-align:center;font-size:.6rem;color:#aaa;border-top:1px solid #eee;
+    padding-top:10px;margin:0 52px;}
+  .al-ref{font-size:.72rem;color:#888;margin-bottom:16px;}
+
+  /* Empty state */
+  .empty-state{text-align:center;padding:60px 20px;color:var(--dark-sub);}
+  .empty-state .ico{font-size:2.5rem;margin-bottom:10px;opacity:.4;}
+
+  /* Responsive */
+  @media(max-width:768px){
+    .sidebar{width:70px;min-width:70px;}
+    .sidebar-brand h2,.sidebar-brand .sub,.nav-label,.nav-item span:not(.icon),.nav-item .badge{display:none;}
+    .sidebar-brand{padding:16px 12px;justify-content:center;}
+    .nav-item{justify-content:center;padding:12px;}
+    .sidebar-footer .btn-side span{display:none;}
+    .page-header,.page-body{padding-left:20px;padding-right:20px;}
+    .lh-grid{grid-template-columns:1fr;}
+    .search-input{width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ LOCK SCREEN ═══════════════════════════════════════════ -->
+<div id="lockScreen">
+  <div class="lock-card">
+    <div class="lock-logo">🔐</div>
+    <div class="lock-title">Admin Panel</div>
+    <div class="lock-sub">ZILJ TECH PRIVATE LIMITED — Restricted Access</div>
+    <label class="lock-label">ENTER PASSWORD</label>
+    <input class="lock-input" type="password" id="pwInput" placeholder="••••••••"
+      onkeydown="if(event.key==='Enter')tryLogin()"/>
+    <button class="lock-btn" onclick="tryLogin()">Unlock</button>
+    <div class="lock-err" id="lockErr"></div>
+  </div>
+</div>
+
+<!-- ══ DASHBOARD ═════════════════════════════════════════════ -->
+<div id="dashboard">
+  <div class="layout">
+
+    <!-- ── SIDEBAR ── -->
+    <div class="sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-icon">ZT</div>
+        <div>
+          <h2>ZILJ Tech</h2>
+          <div class="sub">Admin Panel</div>
+        </div>
+      </div>
+
+      <div class="sidebar-nav">
+        <div class="nav-label">Modules</div>
+        <div class="nav-item active" onclick="showPage('messages')" id="navMessages">
+          <span class="icon">📬</span>
+          <span>Messages</span>
+          <span class="badge" id="msgBadge">0</span>
+        </div>
+        <div class="nav-item" onclick="showPage('payslips')" id="navPayslips">
+          <span class="icon">💰</span>
+          <span>Salary Slips</span>
+          <span class="badge" id="slipBadge">0</span>
+        </div>
+        <div class="nav-item" onclick="showPage('letterhead')" id="navLetterhead">
+          <span class="icon">📄</span>
+          <span>Letterhead</span>
+        </div>
+        <div class="nav-item" onclick="showPage('authletter')" id="navAuthLetter">
+          <span class="icon">📝</span>
+          <span>Auth Letter</span>
+        </div>
+
+        <div class="nav-label" style="margin-top:auto;">Quick Links</div>
+        <div class="nav-item" onclick="window.open('index.html','_blank')">
+          <span class="icon">⚡</span>
+          <span>Salary Generator</span>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="btn-side danger" onclick="logout()">
+          <span>🔒</span><span>Lock Panel</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── CONTENT AREA ── -->
+    <div class="content">
+
+      <!-- ═════ PAGE: MESSAGES ═════ -->
+      <div class="page active" id="pageMessages">
+        <div class="page-header">
+          <h1>📬 Contact Messages</h1>
+          <p>Messages submitted via the website contact form</p>
+        </div>
+        <div class="page-body">
+          <div class="stats">
+            <div class="stat-card">
+              <div class="stat-num" id="msgTotal">0</div>
+              <div class="stat-label">Total Messages</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num" id="msgToday">0</div>
+              <div class="stat-label">Today</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num" id="msgWeek">0</div>
+              <div class="stat-label">This Week</div>
+            </div>
+          </div>
+          <div class="toolbar">
+            <input class="search-input" type="text" id="msgSearch"
+              placeholder="🔍  Search by name, email, subject…" oninput="renderMessages()"/>
+            <button class="btn-action danger" onclick="clearMessages()">🗑 Clear All</button>
+          </div>
+          <div class="msg-grid" id="msgGrid"></div>
+        </div>
+      </div>
+
+      <!-- ═════ PAGE: PAYSLIPS ═════ -->
+      <div class="page" id="pagePayslips">
+        <div class="page-header">
+          <h1>💰 Salary Slip Records</h1>
+          <p>All generated payslips — ZILJ Tech HR records</p>
+        </div>
+        <div class="page-body">
+          <div class="stats">
+            <div class="stat-card">
+              <div class="stat-num" id="slipTotal">0</div>
+              <div class="stat-label">Total Slips</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num" id="slipNext">001</div>
+              <div class="stat-label">Next Slip No.</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num" id="slipNetTotal" style="font-size:1.3rem;">₹ 0</div>
+              <div class="stat-label">Total Net Pay Issued</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-num" id="slipLast" style="font-size:.95rem;">—</div>
+              <div class="stat-label">Last Generated</div>
+            </div>
+          </div>
+          <div class="toolbar">
+            <input class="search-input" type="text" id="slipSearch"
+              placeholder="🔍  Search by ID, name, or month…" oninput="renderSlips()"/>
+            <div style="display:flex;gap:10px;">
+              <button class="btn-action primary" onclick="window.open('index.html','_blank')">⚡ Generate New</button>
+              <button class="btn-action danger" onclick="clearSlips()">🗑 Clear Records</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <div class="table-head">
+              <span class="col-num">#</span>
+              <span class="col-pid">Payslip ID</span>
+              <span class="col-emp">Employee</span>
+              <span class="col-period">Period</span>
+              <span class="col-net">Net Pay</span>
+              <span class="col-time">Generated</span>
+            </div>
+            <div id="slipTableBody"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═════ PAGE: LETTERHEAD ═════ -->
+      <div class="page" id="pageLetterhead">
+        <div class="page-header">
+          <h1>📄 Company Letterhead</h1>
+          <p>Official ZILJ Tech letterhead template and company details</p>
+        </div>
+        <div class="page-body">
+          <div class="lh-grid">
+            <div class="lh-card">
+              <h3>Letterhead Preview</h3>
+              <p>A4 size official letterhead with header and footer</p>
+              <div class="lh-preview">
+                <iframe src="../mnt/images/ZILJ_Tech_Letterhead.pdf" title="Letterhead Preview"></iframe>
+              </div>
+              <div style="margin-top:16px;display:flex;gap:10px;">
+                <a href="../mnt/images/ZILJ_Tech_Letterhead.pdf" download style="flex:1;text-decoration:none;">
+                  <button class="btn-action primary" style="width:100%;">⬇ Download PDF</button>
+                </a>
+                <a href="../mnt/images/ZILJ_Tech_Letterhead.pdf" target="_blank" style="flex:1;text-decoration:none;">
+                  <button class="btn-action" style="width:100%;">🔎 Open Full View</button>
+                </a>
+              </div>
+            </div>
+            <div>
+              <div class="lh-info-card">
+                <h3>Company Details</h3>
+                <div class="lh-detail">
+                  <div class="lh-icon">🏢</div>
+                  <div>
+                    <div class="lh-label">Company Name</div>
+                    <div class="lh-val">ZILJ Tech Private Limited</div>
+                  </div>
+                </div>
+                <div class="lh-detail">
+                  <div class="lh-icon">🛡</div>
+                  <div>
+                    <div class="lh-label">Services</div>
+                    <div class="lh-val">Technology Solutions • Cybersecurity • Data Analytics</div>
+                  </div>
+                </div>
+                <div class="lh-detail">
+                  <div class="lh-icon">📍</div>
+                  <div>
+                    <div class="lh-label">Registered Office</div>
+                    <div class="lh-val">236/16, Cherai Beach Road, Pallippuram, Kerala – 683514</div>
+                  </div>
+                </div>
+                <div class="lh-detail">
+                  <div class="lh-icon">📞</div>
+                  <div>
+                    <div class="lh-label">Phone</div>
+                    <div class="lh-val">+91 95676 68085</div>
+                  </div>
+                </div>
+                <div class="lh-detail">
+                  <div class="lh-icon">✉</div>
+                  <div>
+                    <div class="lh-label">Email</div>
+                    <div class="lh-val">ziljtech@gmail.com &nbsp;|&nbsp; info@ziljtech.com</div>
+                  </div>
+                </div>
+                <div class="lh-detail">
+                  <div class="lh-icon">🌐</div>
+                  <div>
+                    <div class="lh-label">Website</div>
+                    <div class="lh-val">www.ziljtech.com</div>
+                  </div>
+                </div>
+                <div class="lh-detail">
+                  <div class="lh-icon">📋</div>
+                  <div>
+                    <div class="lh-label">GST &amp; CIN</div>
+                    <div class="lh-val" style="font-size:.82rem;">GST: 32AACCZ0864G1ZG<br/>CIN: U72900KL2022PTC078725</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═════ PAGE: AUTHORIZATION LETTER ═════ -->
+      <div class="page" id="pageAuthLetter">
+        <div class="page-header">
+          <h1>📝 Authorization Letter Generator</h1>
+          <p>Generate official authorization letters on ZILJ Tech letterhead</p>
+        </div>
+        <div class="page-body">
+          <div class="auth-layout">
+
+            <!-- ── FORM ── -->
+            <div class="auth-form-card">
+              <h3>✏️ Letter Details</h3>
+
+              <div class="auth-field">
+                <label>Letter To (Recipient)</label>
+                <textarea id="alTo" rows="2" placeholder="e.g. STPL DLT Team">STPL DLT Team</textarea>
+              </div>
+
+              <div class="auth-field">
+                <label>Subject</label>
+                <input type="text" id="alSubject" value="Authorization for DLT Registration" placeholder="Subject of the letter"/>
+              </div>
+
+              <div class="auth-field">
+                <label>Authorized Person Name</label>
+                <input type="text" id="alPersonName" value="Saljith Kj" placeholder="e.g. Saljith Kj"/>
+              </div>
+
+              <div class="auth-field">
+                <label>Authorized Person Designation</label>
+                <input type="text" id="alPersonDesg" value="" placeholder="e.g. Manager, Director"/>
+              </div>
+
+              <div class="auth-field">
+                <label>Authorization Body (Main Content)</label>
+                <textarea id="alBody" rows="5" placeholder="Describe what the person is authorized to do…">We, ZILJ TECH PRIVATE LIMITED, hereby authorize Mr. Saljith Kj to manage and operate our DLT account, including submission of KYC documents, header registration, template management, and other related activities on the DLT platform.
+
+This authorization is issued for official business communication purposes.</textarea>
+              </div>
+
+              <div class="auth-row2">
+                <div class="auth-field">
+                  <label>Signatory Name</label>
+                  <input type="text" id="alSignName" value="" placeholder="Director Name"/>
+                </div>
+                <div class="auth-field">
+                  <label>Signatory Designation</label>
+                  <input type="text" id="alSignDesg" value="Director" placeholder="e.g. Director"/>
+                </div>
+              </div>
+
+              <div class="auth-row2">
+                <div class="auth-field">
+                  <label>Date</label>
+                  <input type="date" id="alDate"/>
+                </div>
+                <div class="auth-field">
+                  <label>Place</label>
+                  <input type="text" id="alPlace" value="Kerala" placeholder="e.g. Kerala"/>
+                </div>
+              </div>
+
+              <div class="auth-field">
+                <label>Reference No. (optional)</label>
+                <input type="text" id="alRef" value="" placeholder="e.g. ZILJ/AUTH/2026/001"/>
+              </div>
+
+              <div class="auth-btn-row">
+                <button class="btn-action primary" onclick="updateAuthPreview()">🔄 Update Preview</button>
+              </div>
+              <div class="auth-btn-row">
+                <button class="btn-action primary" onclick="printAuthLetter()" style="background:linear-gradient(135deg,#007EB5,#00BCD4);">🖨 Print</button>
+                <button class="btn-action primary" onclick="downloadAuthPDF()" style="background:linear-gradient(135deg,#1a6e3c,#27AE60);">⬇ Download PDF</button>
+              </div>
+            </div>
+
+            <!-- ── PREVIEW ── -->
+            <div class="auth-preview-card">
+              <h3>
+                <span>📋 Live Preview</span>
+                <span style="font-size:.72rem;color:var(--dark-sub);font-weight:500;">Auto-updates on change</span>
+              </h3>
+              <div class="auth-letter-wrap" id="authLetterPreview">
+                <!-- Filled by JS -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div><!-- .content -->
+  </div><!-- .layout -->
+</div><!-- #dashboard -->
+
+
+<script>
+/* ═══════════════════════════════════════════════
+   AUTH
+   ═══════════════════════════════════════════════ */
+const PASS = '2488703';
+
+function tryLogin(){
+  const v = document.getElementById('pwInput').value;
+  if(v === PASS){
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display  = 'block';
+    sessionStorage.setItem('zilj_admin','1');
+    loadAll();
+  } else {
+    const err = document.getElementById('lockErr');
+    err.textContent = 'Incorrect password. Try again.';
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwInput').focus();
+    setTimeout(()=> err.textContent='', 3000);
+  }
+}
+
+function logout(){
+  sessionStorage.removeItem('zilj_admin');
+  document.getElementById('dashboard').style.display  = 'none';
+  document.getElementById('lockScreen').style.display = 'flex';
+  document.getElementById('pwInput').value = '';
+}
+
+// Auto-unlock if session active
+if(sessionStorage.getItem('zilj_admin') === '1'){
+  document.getElementById('lockScreen').style.display = 'none';
+  document.getElementById('dashboard').style.display  = 'block';
+  loadAll();
+}
+
+
+/* ═══════════════════════════════════════════════
+   PAGE NAVIGATION
+   ═══════════════════════════════════════════════ */
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  if(name === 'messages'){
+    document.getElementById('pageMessages').classList.add('active');
+    document.getElementById('navMessages').classList.add('active');
+    renderMessages();
+  } else if(name === 'payslips'){
+    document.getElementById('pagePayslips').classList.add('active');
+    document.getElementById('navPayslips').classList.add('active');
+    renderSlips();
+  } else if(name === 'letterhead'){
+    document.getElementById('pageLetterhead').classList.add('active');
+    document.getElementById('navLetterhead').classList.add('active');
+  } else if(name === 'authletter'){
+    document.getElementById('pageAuthLetter').classList.add('active');
+    document.getElementById('navAuthLetter').classList.add('active');
+    updateAuthPreview();
+  }
+}
+
+function loadAll(){
+  loadMessageStats();
+  renderMessages();
+  loadSlipStats();
+  renderSlips();
+}
+
+
+/* ═══════════════════════════════════════════════
+   MESSAGES
+   ═══════════════════════════════════════════════ */
+function getMessages(){
+  return JSON.parse(localStorage.getItem('ziljtech_messages') || '[]');
+}
+
+function loadMessageStats(){
+  const msgs = getMessages();
+  const today = new Date().toLocaleDateString('en-IN');
+  const weekAgo = new Date(Date.now() - 7*24*60*60*1000);
+
+  document.getElementById('msgTotal').textContent = msgs.length;
+  document.getElementById('msgBadge').textContent = msgs.length;
+
+  document.getElementById('msgToday').textContent = msgs.filter(m => {
+    if(!m.timestamp) return false;
+    return m.timestamp.includes(today) || (m.id && new Date(m.id).toLocaleDateString('en-IN') === today);
+  }).length;
+
+  document.getElementById('msgWeek').textContent = msgs.filter(m => {
+    return m.id && new Date(m.id) > weekAgo;
+  }).length;
+}
+
+function renderMessages(){
+  loadMessageStats();
+  const q = (document.getElementById('msgSearch').value || '').toLowerCase();
+  const msgs = getMessages();
+  const grid = document.getElementById('msgGrid');
+
+  const filtered = msgs.filter(m => {
+    if(!q) return true;
+    return (m.name||'').toLowerCase().includes(q) ||
+           (m.email||'').toLowerCase().includes(q) ||
+           (m.subject||'').toLowerCase().includes(q) ||
+           (m.message||'').toLowerCase().includes(q) ||
+           (m.service||'').toLowerCase().includes(q);
+  });
+
+  if(!filtered.length){
+    grid.innerHTML = '<div class="empty-state"><div class="ico">📭</div><div>' +
+      (q ? 'No messages match your search.' : 'No messages yet. They will appear here once submitted via the website.') + '</div></div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(m => {
+    const initials = (m.name||'?').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+    return `<div class="msg-card" id="msg-${m.id}">
+      <button class="msg-delete" onclick="deleteMsg(${m.id})">✕ Delete</button>
+      <div class="msg-card-top">
+        <div class="msg-sender">
+          <div class="msg-avatar">${initials}</div>
+          <div>
+            <div class="msg-name">${esc(m.name)}</div>
+            <div class="msg-email">${esc(m.email)}</div>
+          </div>
+        </div>
+        <div class="msg-time">📅 ${esc(m.timestamp)}</div>
+      </div>
+      <div class="msg-meta">
+        ${m.phone && m.phone !== '—' ? '<span class="msg-tag phone">📞 '+esc(m.phone)+'</span>' : ''}
+        ${m.service && m.service !== '—' ? '<span class="msg-tag">🛠 '+esc(m.service)+'</span>' : ''}
+      </div>
+      ${m.subject && m.subject !== '—' ? '<div class="msg-subject">📌 '+esc(m.subject)+'</div>' : ''}
+      <div class="msg-body">${esc(m.message).replace(/\n/g,'<br>')}</div>
+    </div>`;
+  }).join('');
+}
+
+function deleteMsg(id){
+  if(!confirm('Delete this message?')) return;
+  const msgs = getMessages().filter(m => m.id !== id);
+  localStorage.setItem('ziljtech_messages', JSON.stringify(msgs));
+  loadAll();
+}
+
+function clearMessages(){
+  if(!confirm('Delete ALL messages? This cannot be undone.')) return;
+  localStorage.removeItem('ziljtech_messages');
+  loadAll();
+}
+
+
+/* ═══════════════════════════════════════════════
+   PAYSLIPS
+   ═══════════════════════════════════════════════ */
+function getSlips(){
+  return JSON.parse(localStorage.getItem('zilj_slip_history') || '[]');
+}
+
+function fmt(n){
+  return Number(n).toLocaleString('en-IN');
+}
+
+function fmtTime(iso){
+  if(!iso) return '—';
+  const d = new Date(iso);
+  return d.toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+
+function loadSlipStats(){
+  const data = getSlips();
+  const counter = parseInt(localStorage.getItem('zilj_slip_counter') || '1', 10);
+  const totalNet = data.reduce((s,r) => s + Number(r.netPay||0), 0);
+
+  document.getElementById('slipTotal').textContent = data.length;
+  document.getElementById('slipBadge').textContent = data.length;
+  document.getElementById('slipNext').textContent = String(counter).padStart(3,'0');
+  document.getElementById('slipNetTotal').textContent = '₹ ' + fmt(totalNet);
+  document.getElementById('slipLast').textContent = data.length ? fmtTime(data[0].genTime) : '—';
+}
+
+function renderSlips(){
+  loadSlipStats();
+  const data = getSlips();
+  const q = (document.getElementById('slipSearch').value || '').toLowerCase();
+
+  const filtered = q
+    ? data.filter(r =>
+        (r.pid||'').toLowerCase().includes(q) ||
+        (r.empName||'').toLowerCase().includes(q) ||
+        (r.month||'').toLowerCase().includes(q) ||
+        (r.year||'').toLowerCase().includes(q))
+    : data;
+
+  if(!filtered.length){
+    document.getElementById('slipTableBody').innerHTML =
+      `<div class="empty-state"><div class="ico">📭</div>
+        ${data.length ? 'No records match your search.' : 'No payslips generated yet. Use the Salary Generator to create one.'}</div>`;
+    return;
+  }
+
+  document.getElementById('slipTableBody').innerHTML = filtered.map((r,i) => `
+    <div class="trow">
+      <span class="col-num">${i+1}</span>
+      <span class="col-pid">${r.pid||'—'}</span>
+      <span class="col-emp">${r.empName||'—'}</span>
+      <span class="col-period">${r.month||''} ${r.year||''}</span>
+      <span class="col-net">₹ ${fmt(r.netPay)}</span>
+      <span class="col-time">${fmtTime(r.genTime)}</span>
+    </div>`).join('');
+}
+
+function clearSlips(){
+  if(!confirm('Delete ALL payslip records and reset the counter?\n\nThis cannot be undone.')) return;
+  localStorage.removeItem('zilj_slip_history');
+  localStorage.removeItem('zilj_slip_counter');
+  loadAll();
+}
+
+
+/* ═══════════════════════════════════════════════
+   AUTHORIZATION LETTER
+   ═══════════════════════════════════════════════ */
+
+// Set today's date as default
+document.addEventListener('DOMContentLoaded', () => {
+  const dtInput = document.getElementById('alDate');
+  if(dtInput && !dtInput.value){
+    dtInput.value = new Date().toISOString().split('T')[0];
+  }
+  // Auto-update preview on any input change
+  document.querySelectorAll('#pageAuthLetter input, #pageAuthLetter textarea, #pageAuthLetter select').forEach(el => {
+    el.addEventListener('input', updateAuthPreview);
+  });
+});
+
+function formatAuthDate(dateStr){
+  if(!dateStr) return '—';
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+}
+
+function updateAuthPreview(){
+  const to = document.getElementById('alTo').value.trim() || '—';
+  const subject = document.getElementById('alSubject').value.trim() || '—';
+  const personName = document.getElementById('alPersonName').value.trim() || '________';
+  const personDesg = document.getElementById('alPersonDesg').value.trim();
+  const body = document.getElementById('alBody').value.trim() || '—';
+  const signName = document.getElementById('alSignName').value.trim() || '________';
+  const signDesg = document.getElementById('alSignDesg').value.trim() || 'Director';
+  const dateVal = document.getElementById('alDate').value;
+  const place = document.getElementById('alPlace').value.trim() || '—';
+  const ref = document.getElementById('alRef').value.trim();
+
+  const preview = document.getElementById('authLetterPreview');
+  preview.innerHTML = `
+    <div class="al-header">
+      <div class="al-logo">ZT</div>
+      <div>
+        <div class="al-co-name">ZILJ TECH PRIVATE LIMITED</div>
+        <div class="al-co-sub">Technology Solutions &bull; Cybersecurity &bull; Data Analytics</div>
+        <div class="al-co-contact">236/16, Cherai Beach Road, Pallippuram, Kerala – 683514 &nbsp;|&nbsp; +91 95676 68085</div>
+        <div class="al-co-contact">ziljtech@gmail.com &nbsp;|&nbsp; www.ziljtech.com &nbsp;|&nbsp; GST: 32AACCZ0864G1ZG</div>
+      </div>
+    </div>
+
+    ${ref ? '<div class="al-ref">Ref: '+esc(ref)+'</div>' : ''}
+
+    <div class="al-date"><strong>Date:</strong> ${formatAuthDate(dateVal)} &nbsp;&nbsp;&nbsp; <strong>Place:</strong> ${esc(place)}</div>
+
+    <div class="al-to"><strong>To,</strong><br/>${esc(to).replace(/\n/g,'<br/>')}</div>
+
+    <div class="al-subject">Subject: ${esc(subject)}</div>
+
+    <div class="al-body">
+      ${esc(body).split('\n').map(p => p.trim() ? '<p>'+p+'</p>' : '').join('')}
+    </div>
+
+    <div class="al-sign">
+      <div class="sig-label">Authorized Signatory</div>
+      <div class="sig-line"></div>
+      <div class="sig-name">${esc(signName)}</div>
+      <div class="sig-desg">${esc(signDesg)}</div>
+      <div class="sig-desg">ZILJ Tech Private Limited</div>
+      <div class="sig-seal">Company Seal</div>
+    </div>
+
+    <div class="al-footer">
+      ZILJ Tech Private Limited &nbsp;|&nbsp; CIN: U72900KL2022PTC078725 &nbsp;|&nbsp; GST: 32AACCZ0864G1ZG
+    </div>
+  `;
+}
+
+function printAuthLetter(){
+  const content = document.getElementById('authLetterPreview').innerHTML;
+  const win = window.open('','_blank','width=800,height=1100');
+  win.document.write(`<!DOCTYPE html><html><head><title>Authorization Letter - ZILJ Tech</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',Georgia,serif;padding:48px 52px;color:#1a1a1a;}
+    .al-header{display:flex;align-items:center;gap:16px;padding-bottom:16px;
+      border-bottom:3px solid #0D47A1;margin-bottom:24px;}
+    .al-logo{width:60px;height:60px;border-radius:8px;background:linear-gradient(135deg,#0D47A1,#00BCD4);
+      display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:1rem;flex-shrink:0;
+      -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .al-co-name{font-size:1.15rem;font-weight:800;color:#0D47A1;margin:0;}
+    .al-co-sub{font-size:.7rem;color:#555;margin-top:2px;}
+    .al-co-contact{font-size:.65rem;color:#777;margin-top:2px;}
+    .al-ref{font-size:.72rem;color:#888;margin-bottom:16px;}
+    .al-date{font-size:.82rem;color:#555;margin-bottom:20px;}
+    .al-to{font-size:.85rem;color:#333;margin-bottom:4px;line-height:1.6;margin-bottom:20px;}
+    .al-subject{font-size:.95rem;font-weight:700;color:#0D47A1;
+      text-align:center;margin-bottom:20px;padding:8px;background:#f0f6ff;border-radius:6px;
+      -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .al-body{font-size:.85rem;color:#333;line-height:1.8;margin-bottom:28px;}
+    .al-body p{margin-bottom:12px;}
+    .al-sign{margin-top:36px;}
+    .sig-label{font-size:.7rem;color:#999;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+    .sig-line{width:180px;border-bottom:1px solid #333;margin:28px 0 6px;}
+    .sig-name{font-size:.88rem;font-weight:700;color:#1a1a1a;}
+    .sig-desg{font-size:.78rem;color:#555;}
+    .sig-seal{font-size:.72rem;color:#999;margin-top:10px;font-style:italic;}
+    .al-footer{position:fixed;bottom:20px;left:52px;right:52px;
+      text-align:center;font-size:.6rem;color:#aaa;border-top:1px solid #eee;padding-top:10px;}
+    @media print{
+      body{padding:40px 48px;}
+      .al-logo,.al-subject{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    }
+  </style></head><body>${content}</body></html>`);
+  win.document.close();
+  setTimeout(()=>{ win.print(); }, 400);
+}
+
+function downloadAuthPDF(){
+  // Use html2canvas + jspdf if available, otherwise fallback to print
+  if(typeof html2canvas === 'undefined' || typeof jspdf === 'undefined'){
+    // Load scripts dynamically
+    const s1 = document.createElement('script');
+    s1.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+    const s2 = document.createElement('script');
+    s2.src = 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js';
+    s1.onload = () => { document.head.appendChild(s2); };
+    s2.onload = () => { _generateAuthPDF(); };
+    document.head.appendChild(s1);
+  } else {
+    _generateAuthPDF();
+  }
+}
+
+function _generateAuthPDF(){
+  const el = document.getElementById('authLetterPreview');
+  const origBg = el.style.background;
+  el.style.background = '#fff';
+  html2canvas(el, {scale:2, useCORS:true, backgroundColor:'#ffffff'}).then(canvas => {
+    el.style.background = origBg;
+    const imgData = canvas.toDataURL('image/png');
+    const {jsPDF} = window.jspdf;
+    const pdf = new jsPDF('p','mm','a4');
+    const pdfW = pdf.internal.pageSize.getWidth();
+    const pdfH = (canvas.height * pdfW) / canvas.width;
+    pdf.addImage(imgData,'PNG',0,0,pdfW,pdfH);
+    const subject = document.getElementById('alSubject').value.trim().replace(/\s+/g,'_') || 'Authorization_Letter';
+    pdf.save('ZILJ_Tech_' + subject + '.pdf');
+  });
+}
+
+
+/* ═══════════════════════════════════════════════
+   UTILITY
+   ═══════════════════════════════════════════════ */
+function esc(str){
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
